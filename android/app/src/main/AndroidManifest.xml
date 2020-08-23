@@ -10,18 +10,19 @@
       android:name=".MainApplication"
       android:label="@string/app_name"
       android:icon="@mipmap/ic_launcher"
+      android:usesCleartextTraffic="true"
       android:roundIcon="@mipmap/ic_launcher_round"
       android:allowBackup="false"
       android:theme="@style/AppTheme">
       <meta-data
        android:name="com.google.android.geo.API_KEY"
-       android:value="AIzaSyANAm4wrmlkLaWwRw_8bg5NZM3oARFBQt8"/>
+       android:value="AIzaSyDKqZZCb-EQdlnZlGAicHwHIrouAW2At-8"/>
       <activity
         android:name=".MainActivity"
         android:label="@string/app_name"
         android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
         android:launchMode="singleTask"
-        android:windowSoftInputMode="adjustResize">
+        android:windowSoftInputMode="adjustPan">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />

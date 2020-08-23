@@ -1,12 +1,11 @@
 export const fonts = {
   primary: {
-    200: 'Nunito-ExtraLight',
-    300: 'Nunito-Light',
-    400: 'Nunito-Regular',
-    600: 'Nunito-SemiBold',
-    700: 'Nunito-Bold',
-    800: 'Nunito-ExtraBold',
-    900: 'Nunito-Black',
-    normal: 'Nunito-Regular',
+    200: 'Roboto-Thin',
+    300: 'Roboto-Light',
+    400: 'Roboto-Regular',
+    500: 'Roboto-Medium',
+    600: 'Roboto-Bold',
+    700: 'Roboto-Black',
+    normal: 'Roboto-Regular',
   },
 };

@@ -1,24 +1,80 @@
-import React from 'react';
-import {SafeAreaView, StatusBar, StyleSheet, View} from 'react-native';
+import React, {useEffect} from 'react';
+import {
+  ActivityIndicator,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  View,
+} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 import {ICEda} from '../../assets';
 import {Button, Gap, Input} from '../../components';
-import {colors} from '../../utils';
+import {setLoginAction, setLoginErrorAction} from '../../redux/actions';
+import {colors, useForm} from '../../utils';
+import AsyncStorage from '@react-native-community/async-storage';
 
-const Login = () => {
+const Login = ({navigation}) => {
+  const [form, setForm] = useForm({
+    email: '',
+    password: '',
+  });
+  const {loading, error} = useSelector((state) => state.loginReducer);
+  const dispatch = useDispatch();
+  const handleRegister = () => {
+    navigation.navigate('Register');
+  };
+  const handleSubmit = () => {
+    dispatch(setLoginAction(form.email, form.password, navigation));
+  };
+
+  // useEffect(() => {
+  //   AsyncStorage.clear();
+  // }, []);
+
   return (
     <SafeAreaView style={styles.pages}>
       <StatusBar backgroundColor={colors.primary} />
       <View style={styles.content}>
-        <Gap height={34} />
-        <ICEda style={styles.icon} height={170} width={170} />
-        <Gap height={19} />
-        <Input label="Email" />
-        <Gap height={18} />
-        <Input label="Password" password />
-        <Gap height={6} />
-        <Button position="flex-end" type="nude" text="Sign-up" />
-        <Gap height={40} />
-        <Button onPress={() => alert('aahaa')} position="center" text="Login" />
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Gap height={34} />
+          <ICEda style={styles.icon} height={96} width={96} />
+          <Gap height={72} />
+          <Input
+            onFocus={() => dispatch(setLoginErrorAction(false))}
+            error={error}
+            errorText={error && 'Email/Password Salah'}
+            onChangeText={(val) => setForm('email', val)}
+            placeholder="Masukkan email Anda di sini"
+            label="Email"
+          />
+          <Gap height={24} />
+          <Input
+            onFocus={() => dispatch(setLoginErrorAction(false))}
+            error={error}
+            errorText={error && 'Email/Password Salah'}
+            onChangeText={(val) => setForm('password', val)}
+            placeholder="Masukkan password Anda di sini"
+            label="Password"
+            password
+          />
+          <Gap height={6} />
+          <Gap height={24} />
+          {loading ? (
+            <ActivityIndicator size={32} color={colors.secondary} />
+          ) : (
+            <>
+              <Button onPress={handleSubmit} position="center" text="Login" />
+              <Gap height={24} />
+              <Button
+                onPress={handleRegister}
+                position="center"
+                type="nude"
+                text="Sign Up Di sini"
+              />
+            </>
+          )}
+        </ScrollView>
       </View>
     </SafeAreaView>
   );
@@ -33,7 +89,7 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    paddingHorizontal: 55,
+    paddingHorizontal: 16,
   },
   icon: {
     alignSelf: 'center',

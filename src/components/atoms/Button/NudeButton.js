@@ -1,6 +1,6 @@
 import React from 'react';
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import {fonts, colors} from '../../../utils';
+import {StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {colors, fonts} from '../../../utils';
 
 const NudeButton = ({text, onPress, position}) => {
   return (
@@ -15,9 +15,12 @@ export default NudeButton;
 const styles = StyleSheet.create({
   container: (position) => ({
     alignSelf: position,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
   }),
   p2Primary: {
-    fontSize: 12,
+    fontSize: 15,
     fontFamily: fonts.primary[500],
     color: colors.secondary,
   },

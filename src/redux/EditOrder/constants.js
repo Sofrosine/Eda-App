@@ -1,0 +1,3 @@
+export const EDIT_ORDER = 'EDIT_ORDER';
+export const EDIT_ORDER_SUCCESS = 'EDIT_ORDER_SUCCESS';
+export const EDIT_ORDER_FAILED = 'EDIT_ORDER_FAILED';

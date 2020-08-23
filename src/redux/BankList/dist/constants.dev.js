@@ -1,0 +1,14 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.SET_BANK_LIST = exports.GET_BANK_LIST_FAILED = exports.GET_BANK_LIST_SUCCESS = exports.GET_BANK_LIST = void 0;
+var GET_BANK_LIST = 'GET_BANK_LIST';
+exports.GET_BANK_LIST = GET_BANK_LIST;
+var GET_BANK_LIST_SUCCESS = 'GET_BANK_LIST_SUCCESS';
+exports.GET_BANK_LIST_SUCCESS = GET_BANK_LIST_SUCCESS;
+var GET_BANK_LIST_FAILED = 'GET_BANK_LIST_FAILED';
+exports.GET_BANK_LIST_FAILED = GET_BANK_LIST_FAILED;
+var SET_BANK_LIST = 'SET_BANK_LIST';
+exports.SET_BANK_LIST = SET_BANK_LIST;

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "231125947748",
+    "firebase_url": "https://edaapp-3bb32.firebaseio.com",
+    "project_id": "edaapp-3bb32",
+    "storage_bucket": "edaapp-3bb32.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:231125947748:android:4b615f83e257056663d671",
+        "android_client_info": {
+          "package_name": "com.edaapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "231125947748-9vhl4dmtd0pk4rfgh5i4ka6ptdbhnk2i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWEX1NwW2pNJsQZ0jeIBluyAhVyIkEe1A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "231125947748-9vhl4dmtd0pk4rfgh5i4ka6ptdbhnk2i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

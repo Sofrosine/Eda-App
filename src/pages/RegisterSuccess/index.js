@@ -1,30 +1,35 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  TouchableOpacity,
-} from 'react-native';
-import {ICThumbWhite} from '../../assets';
+import {SafeAreaView, StyleSheet, Text} from 'react-native';
+import {useDispatch} from 'react-redux';
+import {ICRegisterSuccess} from '../../assets';
+import {Button, Gap, ProgressBar} from '../../components';
 import {colors, fonts} from '../../utils';
-import {Gap} from '../../components';
 
-const RegisterSuccess = () => {
+const RegisterSuccess = ({navigation}) => {
+  const dispatch = useDispatch();
+  const handleConfirm = () => {
+    navigation.replace('Auth');
+    dispatch({type: 'DELETE_STATE'});
+  };
   return (
-    <SafeAreaView style={styles.pages}>
-      <Text style={styles.h4Primary}>Registrasi Sukses</Text>
-      <Gap height={44} />
-      <ICThumbWhite />
-      <Gap height={44} />
-      <Text style={styles.h6Primary}>
-        Silahkan cek email anda untuk verifikasi
-      </Text>
-      <Gap height={44} />
-      <TouchableOpacity style={styles.buttonWrapper}>
-        <Text style={styles.p1White}>Kembali ke login page</Text>
-      </TouchableOpacity>
-    </SafeAreaView>
+    <>
+      <ProgressBar percent={100} />
+      <SafeAreaView style={styles.pages}>
+        <ICRegisterSuccess />
+        <Gap height={26} />
+        <Text style={styles.title}>Registrasi Toko Anda Sukses!</Text>
+        <Gap height={16} />
+        <Text style={styles.p1Primary}>
+          Silahkan cek email Anda untuk verifikasi
+        </Text>
+        <Gap height={92} />
+        <Button
+          onPress={handleConfirm}
+          type="nude"
+          text="Kembali ke Halaman Login"
+        />
+      </SafeAreaView>
+    </>
   );
 };
 
@@ -36,6 +41,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
+    paddingHorizontal: 55,
   },
   h4Primary: {
     fontSize: 24,
@@ -43,17 +49,18 @@ const styles = StyleSheet.create({
     color: colors.secondary,
     fontFamily: fonts.primary[700],
   },
-  h6Primary: {
-    fontSize: 18,
-    lineHeight: 25,
-    color: colors.secondary,
-    fontFamily: fonts.primary[700],
+  title: {
+    fontSize: 36,
+    color: colors.white,
+    fontFamily: fonts.primary[300],
+    textAlign: 'center',
   },
-  p1White: {
+  p1Primary: {
     fontSize: 14,
     lineHeight: 19,
-    color: colors.white,
-    fontFamily: fonts.primary[700],
+    color: colors.secondary,
+    fontFamily: fonts.primary[400],
+    textAlign: 'center',
   },
   buttonWrapper: {
     borderBottomWidth: 1,

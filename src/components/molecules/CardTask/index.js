@@ -1,31 +1,46 @@
 import React from 'react';
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import {
-  ICMotorcycleWhite,
-  ICPhoneBlack,
-  ICLocationBlack,
-} from '../../../assets';
-import {Gap} from '../../atoms';
+import {StyleSheet, Text, TouchableOpacity, View, Image} from 'react-native';
+import {ICDate, ICLocation, ICPhone, IMGBarang1} from '../../../assets';
 import {colors, fonts} from '../../../utils';
+import {Badge, Gap} from '../../atoms';
 
-const CardTask = () => {
+const CardTask = ({type, name, phone, location, date, onPress}) => {
   return (
-    <TouchableOpacity style={styles.container}>
-      <View style={styles.iconWrapper}>
-        <ICMotorcycleWhite width={40} height={24} />
+    <TouchableOpacity onPress={onPress} style={styles.container}>
+      <View style={[styles.bottomRight]}>
+        <Badge status={type} />
       </View>
-      <Gap width={20} />
+      <Image
+        height={72}
+        width={75}
+        style={styles.image}
+        source={{
+          uri:
+            'https://d2l12sz4ewcavz.cloudfront.net/assets/boxes/oversized_items/oversized_02-155efcabd68291d16f8fbb2376dea0dd69219898688e934490e21f6cb50eba30.jpg',
+        }}
+      />
+      <Gap width={8} />
       <View style={styles.dataWrapper}>
-        <Text style={styles.h6Normal}>Ridwan M</Text>
+        <Text style={styles.h6Normal}>{name}</Text>
+        <Gap height={8} />
         <View style={styles.rowAlignCenter}>
-          <ICPhoneBlack />
+          <ICPhone height={12} width={12} />
           <Gap width={6} />
-          <Text style={styles.p2Normal}>08123898292</Text>
+          <Text style={styles.p2Normal}>{phone}</Text>
         </View>
-        <View style={styles.rowAlignCenter}>
-          <ICLocationBlack />
+        <Gap height={8} />
+        <View style={[styles.rowAlignCenter]}>
+          <ICLocation height={12} width={12} />
           <Gap width={6} />
-          <Text style={styles.p2Normal}>Depok</Text>
+          <Text numberOfLines={1} style={[styles.p2Normal, {maxWidth: '70%'}]}>
+            {location}
+          </Text>
+        </View>
+        <Gap height={8} />
+        <View style={styles.rowAlignCenter}>
+          <ICDate height={12} width={12} />
+          <Gap width={6} />
+          <Text style={styles.p2Normal}>{date}</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -38,20 +53,24 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     padding: 8,
-    elevation: 2,
+    elevation: 3,
     backgroundColor: colors.white,
     shadowColor: colors.primary,
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.2,
     shadowRadius: 4,
     borderRadius: 5,
-    height: 97,
-    alignItems: 'center',
+    height: 133,
   },
   dataWrapper: {alignSelf: 'flex-start', marginTop: 5},
   rowAlignCenter: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  image: {
+    height: 80,
+    width: 83,
+    marginTop: 4,
   },
   h6Normal: {
     fontSize: 18,
@@ -61,16 +80,53 @@ const styles = StyleSheet.create({
   },
   p2Normal: {
     fontSize: 12,
-    color: colors.text.black,
-    fontFamily: fonts.primary[500],
+    color: colors.text.gray,
+    fontFamily: fonts.primary[400],
     lineHeight: 16,
   },
-  iconWrapper: {
-    backgroundColor: colors.secondary,
+  type: (type) => ({
+    backgroundColor:
+      type === 'pick-up' ? colors.taskType.pickUp : colors.taskType.delivered,
     justifyContent: 'center',
     alignItems: 'center',
-    width: 69,
-    height: 66,
-    borderRadius: 200,
+    width: 72,
+    height: 22,
+    borderRadius: 5,
+  }),
+  p3Gray: {
+    fontSize: 10,
+    color: colors.text.black,
+    fontFamily: fonts.primary[500],
+    fontStyle: 'italic',
+    lineHeight: 10,
+  },
+  p3Yellow: {
+    fontSize: 10,
+    color: colors.text.secondary,
+    fontFamily: fonts.primary[500],
+    fontStyle: 'italic',
+    lineHeight: 10,
+  },
+  p3White: {
+    fontSize: 10,
+    color: colors.text.white,
+    fontFamily: fonts.primary[500],
+  },
+  p3Green: {
+    fontSize: 10,
+    color: colors.text.tersiary,
+    fontFamily: fonts.primary[500],
+    fontStyle: 'italic',
+    lineHeight: 10,
+  },
+  topRight: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
+  },
+  bottomRight: {
+    position: 'absolute',
+    bottom: 22,
+    right: -8,
   },
 });

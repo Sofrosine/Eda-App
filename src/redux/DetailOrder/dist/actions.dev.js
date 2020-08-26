@@ -51,7 +51,7 @@ var getDetailOrderAction = function getDetailOrderAction(id) {
           case 5:
             apiReq = _context.sent;
             dispatch(getDetailOrderSuccess(apiReq.data.data));
-            console.log('apih', apiReq.data.data);
+            console.log('apih detail', apiReq.data.data);
             dispatch((0, _actions.setLoadingAction)(false));
             _context.next = 16;
             break;

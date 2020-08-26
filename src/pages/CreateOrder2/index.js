@@ -52,6 +52,7 @@ const CreateOrder2 = ({navigation, route}) => {
   useEffect(() => {
     dispatch(getAvailablePaymentAction());
     dispatch(getDetailOrderAction(order_id));
+    console.log('detailOrder', detailOrderReducer.data.total_amount);
     dispatch(getBankListAction());
     console.log('reducah', detailOrderReducer);
   }, []);
@@ -133,6 +134,13 @@ const CreateOrder2 = ({navigation, route}) => {
                           </View>
                         );
                       })}
+                  </View>
+                  <Gap height={24} />
+                  <View>
+                    <Text style={styles.p2Bold}>Total Pembayaran</Text>
+                    <Text style={styles.p1Regular}>
+                      {detailOrderReducer.data.total_amount}
+                    </Text>
                   </View>
                   <Gap height={24} />
                   <Input
@@ -232,5 +240,20 @@ const styles = StyleSheet.create({
     fontFamily: fonts.primary[400],
     fontSize: 12,
     color: colors.black,
+  },
+  p1Regular: {
+    fontFamily: fonts.primary[400],
+    fontSize: 14,
+    color: colors.black,
+  },
+  p2Bold: {
+    fontFamily: fonts.primary[500],
+    fontSize: 12,
+    color: colors.black,
+  },
+  p3GrayRegular: {
+    fontFamily: fonts.primary[400],
+    fontSize: 10,
+    color: colors.gray,
   },
 });

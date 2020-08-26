@@ -21,7 +21,7 @@ const Badge = ({status}) => {
         setStatusText('Approved');
         setBgColor('#0275d8');
         return;
-      case 'going_to_pickup':
+      case 'going_to_pick_up':
         setStatusText('Going to pickup');
         setBgColor('#5bc0de');
         return;

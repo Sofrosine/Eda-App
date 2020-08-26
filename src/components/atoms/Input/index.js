@@ -18,6 +18,7 @@ const Input = ({
   onFocus,
   value,
   onBlur,
+  defaultValue,
 }) => {
   if (type === 'map') {
     return (
@@ -238,6 +239,7 @@ const Input = ({
       </View>
       {/* <Gap height={4} /> */}
       <TextInput
+        defaultValue={defaultValue}
         onBlur={onBlur}
         value={value}
         onFocus={onFocus}

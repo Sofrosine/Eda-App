@@ -23,6 +23,7 @@
     "@react-navigation/stack": "^5.8.0",
     "axios": "^0.19.2",
     "formik": "^2.1.5",
+    "formik-persist": "^1.1.0",
     "react": "16.13.1",
     "react-native": "0.63.2",
     "react-native-fast-image": "^8.3.2",

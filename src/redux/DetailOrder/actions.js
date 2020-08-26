@@ -27,7 +27,7 @@ export const getDetailOrderAction = (id) => {
     try {
       const apiReq = await api('get', `order/detail?id=${id}`);
       dispatch(getDetailOrderSuccess(apiReq.data.data));
-      console.log('apih', apiReq.data.data);
+      console.log('apih detail', apiReq.data.data);
       dispatch(setLoadingAction(false));
     } catch (error) {
       console.log('get detail order', error);

@@ -36,6 +36,7 @@ import {
   setLocationAction,
 } from '../../redux/actions';
 import {colors, fonts, setDate} from '../../utils';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const CreateOrder = ({navigation}) => {
   const [nowDate, setNowDate] = useState(new Date());
@@ -159,6 +160,10 @@ const CreateOrder = ({navigation}) => {
         ),
       );
     }
+  };
+
+  const handleChange = (val) => {
+    AsyncStorage.setItem('@receiver_name', val);
   };
 
   useEffect(() => {

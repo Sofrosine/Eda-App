@@ -28,6 +28,7 @@ const Home = ({navigation}) => {
     tabBarActive
       ? dispatch(getOrderActiveAction())
       : dispatch(getOrderInactiveAction());
+      console.log('getOrder', getOrderReducer)
   }, [navigation]);
   return (
     <SafeAreaView style={styles.pages}>
@@ -36,7 +37,7 @@ const Home = ({navigation}) => {
         <Gap height={16} />
         <View style={{paddingHorizontal: 16}}>
           <HomeTabBar setState={setTabBar} isActive={tabBarActive} />
-        </View>
+        </View> 
         <Gap height={16} />
         <View style={[styles.content]}>
           {tabBarActive ? (
@@ -56,6 +57,11 @@ const Home = ({navigation}) => {
                       phone={item.receiver_phone}
                       location={item.receiver_address}
                       date={item.created_at}
+                      onPress={() =>
+                        navigation.navigate('DetailOrder', {
+                          id: item.id,
+                        })
+                      }
                     />
                     <Gap height={16} />
                   </>

@@ -32,7 +32,7 @@ const getOrderReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        data: action.payload.resActive,
+        activeData: action.payload.resActive,
       };
     case GET_ACTIVE_ORDER_FAILED:
       return {

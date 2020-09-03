@@ -14,7 +14,7 @@ const getUser = async () => {
 };
 
 const api = async (method, endpoint, params = {}, isForm) => {
-  const dataUser = await getUser();
+  const dataUser = await getUser(); 
   const startAxios = await Axios({
     method,
     url: `${baseURL}/${endpoint}`,

@@ -108,14 +108,12 @@ const Input = ({
             }>
             {label} {required ? '*' : null}
           </Text>
-          {errorText.length > 0 && (
-            <Text
-              numberOfLines={1}
-              lineBreakMode="tail"
-              style={[[styles.p2RedPrimary]]}>
-              {errorText}
-            </Text>
-          )}
+          <Text
+            numberOfLines={1}
+            lineBreakMode="tail"
+            style={[[styles.p2Primary]]}>
+            Minimal 1
+          </Text>
         </View>
         {/* <Gap height={4} /> */}
         <Text
@@ -150,14 +148,13 @@ const Input = ({
             }>
             {label} {required ? '*' : null}
           </Text>
-          {errorText.length > 0 && (
-            <Text
-              numberOfLines={1}
-              lineBreakMode="tail"
-              style={[[styles.p2RedPrimary]]}>
-              {errorText}
-            </Text>
-          )}
+
+          <Text
+            numberOfLines={1}
+            lineBreakMode="tail"
+            style={[[styles.p2Primary]]}>
+            Minimal 1
+          </Text>
         </View>
         {/* <Gap height={4} /> */}
         <Text

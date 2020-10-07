@@ -18,3 +18,7 @@ export * from './AvailablePayment/actions';
 export * from './BankList/actions';
 export * from './PaymentManual/actions';
 export * from './CancelOrder/actions';
+export * from './GetCustomer/actions';
+export * from './AddCustomer/actions';
+export * from './SearchCustomer/actions';
+export * from './Profile/actions';

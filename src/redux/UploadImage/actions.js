@@ -7,6 +7,7 @@ import {
   SET_UPLOAD_IMAGE,
 } from './constants';
 import {setLoadingAction} from '../Loading/actions';
+import {errorHandler} from '../../utils';
 
 const uploadImage = () => ({
   type: UPLOAD_IMAGE,
@@ -26,9 +27,9 @@ const resetUploadImage = () => ({
   type: RESET_UPLOAD_IMAGE,
 });
 
-const setUploadImage = (url,id) => ({
+const setUploadImage = (url, id) => ({
   type: SET_UPLOAD_IMAGE,
-  payload: {url,id},
+  payload: {url, id},
 });
 
 export const uploadImageAction = (formData) => {
@@ -37,8 +38,18 @@ export const uploadImageAction = (formData) => {
     console.log('formdatahh', formData);
     dispatch(uploadImage());
     try {
+      // const apiReq = await fetch(
+      //   'https://calasteo.tech/api/merchant/image/upload',
+      //   {
+      //     method: 'POST',
+      //     body: formData,
+      //     headers: {
+      //       'Content-Type': 'multipart/form-data',
+      //     },
+      //   },
+      // );
       const apiReq = await Axios.post(
-        'http://178.128.212.200/api/merchant/image/upload',
+        'https://calasteo.tech/api/merchant/image/upload',
         formData,
         {
           headers: {
@@ -54,6 +65,7 @@ export const uploadImageAction = (formData) => {
       console.log('error image', error);
       dispatch(uploadImageFailed(error));
       dispatch(setLoadingAction(false));
+      errorHandler(error);
     }
   };
 };
@@ -64,8 +76,8 @@ export const resetUploadImageAction = () => {
   };
 };
 
-export const setUploadImageAction = (url,id) => {
+export const setUploadImageAction = (url, id) => {
   return async (dispatch) => {
-    dispatch(setUploadImage(url,id));
+    dispatch(setUploadImage(url, id));
   };
 };

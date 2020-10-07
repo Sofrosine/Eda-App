@@ -11,6 +11,8 @@ import Loading from './Loading';
 import InputMapComplete from './InputMapComplete';
 import ListDetailOrder from './ListDetailOrder';
 import InputDate from './InputDate';
+import CustomerList from './CustomerList';
+import ModalImport from './ModalImport';
 
 export {
   UploadButton,
@@ -26,4 +28,6 @@ export {
   InputMapComplete,
   ListDetailOrder,
   InputDate,
+  CustomerList,
+  ModalImport,
 };

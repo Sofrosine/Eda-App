@@ -34,6 +34,7 @@ import ICEditOrange from './ICEditOrange.svg';
 import ICCloseCircularOrange from './ICCloseCircularOrange.svg';
 import ICProcess from './ICProcess.svg';
 import ICVerified from './ICVerified.svg';
+import ICInvoiceWhite from './ICInvoiceWhite.svg';
 
 export {
   ICEda,
@@ -72,4 +73,5 @@ export {
   ICCloseCircularOrange,
   ICProcess,
   ICVerified,
+  ICInvoiceWhite,
 };

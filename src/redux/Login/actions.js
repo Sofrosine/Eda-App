@@ -36,7 +36,7 @@ export const setLoginAction = (email, password, navigation) => {
     dispatch(setLogin());
     try {
       const apiReq = await Axios.post(
-        'http://178.128.212.200/api/merchant/auth/login',
+        'https://calasteo.tech/api/merchant/auth/login',
         {
           email,
           password,

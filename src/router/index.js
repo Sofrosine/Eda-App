@@ -3,19 +3,23 @@ import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
 import {DrawerContent} from '../components';
 import {
+  AddCustomer,
   CreateOrder,
   CreateOrder2,
   DetailOrder,
   Home,
+  ListCustomer,
   Login,
   OrderVerificationProcess,
   OrderVerified,
+  Profile,
   Register,
-  RegisterDetail,
   RegisterDetail2,
   RegisterSuccess,
   Splash,
+  UpdatePassword,
 } from '../pages';
+import EditName from '../pages/EditName';
 import EditOrder from '../pages/EditOrder';
 
 const Stack = createStackNavigator();
@@ -29,9 +33,9 @@ const DrawerRouter = () => {
       drawerStyle={{width: '80%'}}
       initialRouteName="Home">
       <Drawer.Screen name="Home" component={Home} />
-      {/* <Drawer.Screen name="Profile" component={Login} />
-      <Drawer.Screen name="Contact" component={DetailOrder} />
-      <Drawer.Screen name="History" component={RegisterDetail} /> */}
+      <Drawer.Screen name="Profile" component={Profile} />
+      <Drawer.Screen name="List Customer" component={ListCustomer} />
+      <Drawer.Screen name="Invoice" component={RegisterDetail2} />
     </Drawer.Navigator>
   );
 };
@@ -45,8 +49,6 @@ const RegisterRouter = () => {
       })}
       initialRouteName="Register">
       <Stack.Screen name="Register" component={Register} />
-      <Stack.Screen name="RegisterDetail" component={RegisterDetail} />
-      <Stack.Screen name="RegisterDetail2" component={RegisterDetail2} />
     </Stack.Navigator>
   );
 };
@@ -86,6 +88,10 @@ const Router = () => {
       <Stack.Screen name="OrderVerified" component={OrderVerified} />
       <Stack.Screen name="DetailOrder" component={DetailOrder} />
       <Stack.Screen name="EditOrder" component={EditOrder} />
+      <Stack.Screen name="AddCustomer" component={AddCustomer} />
+      <Stack.Screen name="EditName" component={EditName} />
+      <Stack.Screen name="RegisterDetail2" component={RegisterDetail2} />
+      <Stack.Screen name="UpdatePassword" component={UpdatePassword} />
     </Stack.Navigator>
   );
 };

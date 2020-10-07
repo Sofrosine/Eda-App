@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {Image, StyleSheet, TouchableOpacity, Text} from 'react-native';
 // import ImagePicker from 'react-native-image-picker';
 import ImagePicker from 'react-native-image-crop-picker';
 import {useDispatch, useSelector} from 'react-redux';
@@ -8,10 +8,10 @@ import {uploadImageAction} from '../../../redux/actions';
 import {colors} from '../../../utils';
 
 const UploadButton = ({type = 'avatar'}) => {
-  const [uri, setUri] = useState('');
   const dispatch = useDispatch();
+  const [yo, setYo] = useState('');
   const {uploadImageReducer} = useSelector((state) => state);
-  const {loading, data, error} = uploadImageReducer;
+  const {data} = uploadImageReducer;
   const formData = new FormData();
   const handleUpload = async () => {
     ImagePicker.openPicker({
@@ -26,19 +26,21 @@ const UploadButton = ({type = 'avatar'}) => {
           name: `${new Date().getTime().toString()}.jpg`,
         });
         await formData.append('section', type);
-        console.log('form wes', formData);
+        setYo(res.path);
         dispatch(uploadImageAction(formData));
         // Axios.post('http://178.128.212.200/api/merchant/image/upload', formData)
         //   .then((result) => console.log('results', res))
         //   .catch((e) => console.log('error image', e));
       })
       .catch((err) => console.log('error', err));
-  }; 
+  };
   return (
-    <TouchableOpacity onPress={handleUpload} style={styles.container}>
-      {!data.url && <ICUploadWhite height={20} width={23} />}
-      {data.url && <Image source={{uri: data.url}} style={styles.image} />}
-    </TouchableOpacity>
+    <>
+      <TouchableOpacity onPress={handleUpload} style={styles.container}>
+        {!data.url && <ICUploadWhite height={20} width={23} />}
+        {data.url && <Image source={{uri: data.url}} style={styles.image} />}
+      </TouchableOpacity>
+    </>
   );
 };
 

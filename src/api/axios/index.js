@@ -1,7 +1,7 @@
 import Axios from 'axios';
 import {getData} from '../../utils';
 
-const baseURL = 'http://178.128.212.200/api/merchant';
+const baseURL = 'https://calasteo.tech/api/merchant';
 const getUser = async () => {
   const token = await getData('@user_token');
   const location = await getData('@user_location');

@@ -7,6 +7,7 @@ import {
 import {api} from '../../api';
 import {ToastAndroid} from 'react-native';
 import {setLoadingAction} from '../Loading/actions';
+import { setRegisterAction } from '../Register/actions';
 
 const checkEmail = () => ({
   type: CHECK_EMAIL,
@@ -34,12 +35,23 @@ export const checkEmailAction = (form, navigation) => {
       const apiReq = await api('post', 'auth/check-email', formData, true);
       dispatch(checkEmailSuccess(apiReq.data));
       const {name, email, password, password_confirmation} = form;
-      navigation.navigate('RegisterDetail', {
-        name,
-        email,
-        password,
-        password_confirmation,
-      });
+      // navigation.navigate('RegisterDetail', {
+      //   name,
+      //   email,
+      //   password,
+      //   password_confirmation,
+      // });
+      dispatch(
+        setRegisterAction(
+          {
+            name,
+            email,
+            password,
+            password_confirmation,
+          },
+          navigation,
+        ),
+      );
       dispatch(setLoadingAction(false));
     } catch (error) {
       console.log('error check email', error);

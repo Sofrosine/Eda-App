@@ -30,7 +30,7 @@ export const setRegisterAction = (form, navigation) => {
       //   const apiReq = await api('post', 'auth/register', form);
       console.log('formm', form);
       const apiReq = await Axios.post(
-        'http://178.128.212.200/api/merchant/auth/register',
+        'https://calasteo.tech/api/merchant/auth/register',
         form,
       );
       dispatch(setLoadingAction(false));

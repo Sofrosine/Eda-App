@@ -1,7 +1,7 @@
 import Splash from './Splash';
 import Register from './Register';
 import Login from './Login';
-import RegisterDetail from './RegisterDetail';
+import EditName from './EditName';
 import RegisterDetail2 from './RegisterDetail2';
 import RegisterSuccess from './RegisterSuccess';
 import Home from './Home';
@@ -10,12 +10,16 @@ import CreateOrder2 from './CreateOrder2';
 import OrderVerificationProcess from './OrderVerificationProcess';
 import OrderVerified from './OrderVerified';
 import DetailOrder from './DetailOrder';
+import ListCustomer from './ListCustomer';
+import AddCustomer from './AddCustomer';
+import Profile from './Profile';
+import UpdatePassword from './UpdatePassword';
 
 export {
   Splash,
   Register,
   Login,
-  RegisterDetail,
+  EditName,
   RegisterDetail2,
   RegisterSuccess,
   Home,
@@ -24,4 +28,8 @@ export {
   OrderVerificationProcess,
   OrderVerified,
   DetailOrder,
+  ListCustomer,
+  AddCustomer,
+  Profile,
+  UpdatePassword,
 };

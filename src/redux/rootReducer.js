@@ -19,7 +19,10 @@ import availablePaymentReducer from './AvailablePayment/reducers';
 import bankListReducer from './BankList/reducers';
 import paymentManualReducer from './PaymentManual/reducers';
 import cancelOrderReducer from './CancelOrder/reducers';
-import AsyncStorage from '@react-native-community/async-storage';
+import customerReducer from './GetCustomer/reducers';
+import addCustomerReducer from './AddCustomer/reducers';
+import searchCustomerReducer from './SearchCustomer/reducers';
+import profileReducer from './Profile/reducers';
 
 const appReducer = combineReducers({
   loginReducer,
@@ -42,6 +45,10 @@ const appReducer = combineReducers({
   bankListReducer,
   paymentManualReducer,
   cancelOrderReducer,
+  customerReducer,
+  addCustomerReducer,
+  searchCustomerReducer,
+  profileReducer,
 });
 
 const rootReducer = (state, action) => {

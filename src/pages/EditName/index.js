@@ -27,17 +27,17 @@ const registerSchema = yup.object({
   merchant_name: yup.string().required(),
 });
 
-const RegisterDetail = ({navigation, route}) => {
-  const {name, email, password, password_confirmation} = route.params;
+const EditName = ({navigation, route}) => {
+  // const {name, email, password, password_confirmation} = route.params;
   const globalState = useSelector((state) => state);
   const {categoryReducer, uploadImageReducer} = globalState;
   const dispatch = useDispatch();
   const handleRegister = (values) => {
     navigation.navigate('RegisterDetail2', {
-      name,
-      email,
-      password,
-      password_confirmation,
+      // name,
+      // email,
+      // password,
+      // password_confirmation,
       merchant_name: values.merchant_name,
       category_id: categoryReducer.selectedCategory,
       merchant_image_id: uploadImageReducer.data.id
@@ -68,7 +68,6 @@ const RegisterDetail = ({navigation, route}) => {
   return (
     <SafeAreaView style={styles.pages}>
       <StatusBar backgroundColor={colors.primary} />
-      <ProgressBar percent={66} />
       <View style={styles.content}>
         <Formik
           validationSchema={registerSchema}
@@ -131,7 +130,7 @@ const RegisterDetail = ({navigation, route}) => {
   );
 };
 
-export default RegisterDetail;
+export default EditName;
 
 const styles = StyleSheet.create({
   pages: {

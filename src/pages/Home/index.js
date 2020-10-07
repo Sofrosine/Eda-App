@@ -28,7 +28,7 @@ const Home = ({navigation}) => {
     tabBarActive
       ? dispatch(getOrderActiveAction())
       : dispatch(getOrderInactiveAction());
-      console.log('getOrder', getOrderReducer)
+    console.log('getOrder', getOrderReducer);
   }, [navigation]);
   return (
     <SafeAreaView style={styles.pages}>
@@ -37,7 +37,7 @@ const Home = ({navigation}) => {
         <Gap height={16} />
         <View style={{paddingHorizontal: 16}}>
           <HomeTabBar setState={setTabBar} isActive={tabBarActive} />
-        </View> 
+        </View>
         <Gap height={16} />
         <View style={[styles.content]}>
           {tabBarActive ? (

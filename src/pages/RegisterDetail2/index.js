@@ -64,7 +64,7 @@ const RegisterDetail2 = ({navigation, route}) => {
       return alert('Harap lengkapi data yang ada');
     } else {
       dispatch(
-        setRegisterAction(
+        setRegisterAction( 
           {
             name,
             email,

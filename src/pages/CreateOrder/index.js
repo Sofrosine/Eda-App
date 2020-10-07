@@ -1,18 +1,19 @@
+import AsyncStorage from '@react-native-community/async-storage';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {Picker} from '@react-native-community/picker';
-import {Formik} from 'formik';
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Alert,
+  BackHandler,
   Platform,
   SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
-  BackHandler,
+  View,
+  TouchableOpacity,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import * as yup from 'yup';
 import {
   Button,
   Dropdown,
@@ -22,6 +23,7 @@ import {
   InputMapComplete,
   Navbar,
   UploadButton,
+  ModalImport,
 } from '../../components';
 import {
   addOrderAction,
@@ -32,11 +34,8 @@ import {
   setCityAction,
   setDistrictAction,
   setProvinceAction,
-  setAutoCompleteAction,
-  setLocationAction,
 } from '../../redux/actions';
-import {colors, fonts, setDate, useForm, getData, storeData} from '../../utils';
-import AsyncStorage from '@react-native-community/async-storage';
+import {colors, fonts, getData, setDate, storeData, useForm} from '../../utils';
 
 const CreateOrder = ({navigation}) => {
   const [nowDate, setNowDate] = useState(new Date());
@@ -94,17 +93,9 @@ const CreateOrder = ({navigation}) => {
     product_length_val && setLength(product_length_val);
   };
 
-  useEffect(() => {
-    getName();
-  }, []);
-
   var tomorrow = new Date();
 
   const onChange = async (event, selectedDate) => {
-    var convertNowDate = new Date(new Date().getTime());
-    var convertNowDay = convertNowDate.getDate();
-    var convertNowMonth = convertNowDate.getMonth() + 1;
-    var convertNowYear = convertNowDate.getFullYear();
     var convertTomorrowDate = new Date(
       new Date().getTime() + 24 * 60 * 60 * 1000,
     );
@@ -219,6 +210,7 @@ const CreateOrder = ({navigation}) => {
   };
 
   useEffect(() => {
+    getName();
     dispatch({type: 'DELETE_STATE'});
     dispatch(getLocationAction());
     dispatch(getProvinceAction('order'));
@@ -235,6 +227,8 @@ const CreateOrder = ({navigation}) => {
     };
   }, []);
 
+  const [isVisible, setVisible] = useState(false);
+
   return (
     <SafeAreaView style={styles.pages}>
       <Navbar
@@ -242,9 +236,20 @@ const CreateOrder = ({navigation}) => {
         type="back"
         title="Buat Order Baru"
       />
-
       <ScrollView contentContainerStyle={{paddingHorizontal: 16}}>
         <Gap height={24} />
+        <View style={styles.rowCenterBetween}>
+          <Text style={[styles.buttonPrimaryBold, styles.textTitle]}>
+            ORDER #1
+          </Text>
+          <TouchableOpacity
+            onPress={() => setVisible(true)}
+            style={[styles.selfCenter]}>
+            <Text style={[styles.p1PrimaryBold]}>Import Data Penerima</Text>
+          </TouchableOpacity>
+        </View>
+
+        <Gap height={16} />
         <InputDate
           text={newDate}
           onPress={() => setShow(true)}
@@ -459,6 +464,7 @@ const CreateOrder = ({navigation}) => {
         <Button text="Lanjut" onPress={() => handleSubmit(form)} />
         <Gap height={24} />
       </ScrollView>
+      <ModalImport isVisible={isVisible} setVisible={setVisible} />
     </SafeAreaView>
   );
 };
@@ -475,6 +481,25 @@ const styles = StyleSheet.create({
     zIndex: 9999,
     alignSelf: 'center',
     top: '42%',
+  },
+  selfCenter: {
+    alignSelf: 'center',
+    justifyContent: 'flex-end',
+  },
+  textTitle: {
+    paddingBottom: 4,
+    borderBottomWidth: 2,
+    borderBottomColor: colors.primary,
+  },
+  buttonPrimaryBold: {
+    fontFamily: fonts.primary[600],
+    fontSize: 16,
+    color: colors.primary,
+  },
+  p1PrimaryBold: {
+    fontFamily: fonts.primary[600],
+    fontSize: 14,
+    color: colors.primary,
   },
   p1Black: {
     fontFamily: fonts.primary[500],
@@ -499,5 +524,10 @@ const styles = StyleSheet.create({
   rowCenter: {
     flexDirection: 'row',
     // alignItems: 'center',
+  },
+  rowCenterBetween: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 });

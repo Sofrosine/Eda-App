@@ -95,7 +95,7 @@ const CreateOrder = ({navigation}) => {
 
   var tomorrow = new Date();
 
-  const onChange = async (event, selectedDate) => {
+  const onChangeDate = async (event, selectedDate) => {
     var convertTomorrowDate = new Date(
       new Date().getTime() + 24 * 60 * 60 * 1000,
     );
@@ -108,7 +108,8 @@ const CreateOrder = ({navigation}) => {
     const date = currentDate.getDate();
     const month = currentDate.getMonth();
     const year = currentDate.getFullYear();
-    const dates = setDate(date, month, year);
+    let dates = setDate(date, month, year);
+    dates = dates.length > 10 ? dates.slice(0, 5) + dates.slice(6) : dates;
     if (
       currentDate.getHours() > 20 &&
       `${year}-${date}-${month + 1}` ===
@@ -131,6 +132,19 @@ const CreateOrder = ({navigation}) => {
     getLocationReducer,
     uploadImageReducer,
   } = useSelector((state) => state);
+
+  const resetForm = () => {
+    setForm({
+      receiver_name: '',
+      receiver_phone: '',
+      product_name: '',
+      product_description: '',
+      product_weight: '',
+      product_height: '',
+      product_width: '',
+      product_length: '',
+    });
+  };
 
   const handleSubmit = async (val) => {
     if (receiver_name === '') {
@@ -191,6 +205,7 @@ const CreateOrder = ({navigation}) => {
             ],
           },
           navigation,
+          resetForm,
         ),
       );
       await AsyncStorage.removeItem('receiver_name');
@@ -202,11 +217,6 @@ const CreateOrder = ({navigation}) => {
       await AsyncStorage.removeItem('product_width');
       await AsyncStorage.removeItem('product_length');
     }
-  };
-
-  const handleChange = (val, id) => {
-    setForm(id, val);
-    storeData(`${id}`, val);
   };
 
   useEffect(() => {
@@ -239,9 +249,7 @@ const CreateOrder = ({navigation}) => {
       <ScrollView contentContainerStyle={{paddingHorizontal: 16}}>
         <Gap height={24} />
         <View style={styles.rowCenterBetween}>
-          <Text style={[styles.buttonPrimaryBold, styles.textTitle]}>
-            ORDER #1
-          </Text>
+          <Text style={[styles.buttonPrimaryBold, styles.textTitle]}></Text>
           <TouchableOpacity
             onPress={() => setVisible(true)}
             style={[styles.selfCenter]}>
@@ -262,7 +270,7 @@ const CreateOrder = ({navigation}) => {
             value={nowDate}
             is24Hour={true}
             display="default"
-            onChange={onChange}
+            onChange={onChangeDate}
           />
         )}
         <Gap height={24} />

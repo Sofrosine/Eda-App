@@ -39,7 +39,7 @@ const Profile = ({navigation}) => {
   }, []);
   return (
     <View style={styles.pages}>
-      <Navbar title="Profile" />
+      <Navbar onPress={() => navigation.openDrawer()} title="Profile" />
       <ScrollView contentContainerStyle={styles.content}>
         {profileReducer.loading ? (
           <ActivityIndicator size={32} color={colors.primary} />
@@ -58,13 +58,19 @@ const Profile = ({navigation}) => {
             <Info
               label="Nomor Handphone"
               text={(merchant && merchant.merchant_phone) || '-'}
+              route="EditName"
             />
             <Gap height={24} />
-            <Info label="Email" text={profileReducer.data.email || '-'} />
+            <Info
+              label="Email"
+              text={profileReducer.data.email || '-'}
+              route="EditName"
+            />
             <Gap height={24} />
             <Info
               label="Alamat"
               text={(merchant && merchant.merchant_address) || '-'}
+              route="EditAddress"
             />
             <Gap height={24} />
             <TouchableOpacity

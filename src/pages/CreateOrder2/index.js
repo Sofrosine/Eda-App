@@ -38,7 +38,7 @@ const paymentSchema = yup.object({
 });
 
 const CreateOrder2 = ({navigation, route}) => {
-  const {order_id} = route.params;
+  const {request_order_id, item} = route.params;
   const [checked, setChecked] = useState(0);
   const dispatch = useDispatch();
   const {
@@ -51,10 +51,9 @@ const CreateOrder2 = ({navigation, route}) => {
 
   useEffect(() => {
     dispatch(getAvailablePaymentAction());
-    dispatch(getDetailOrderAction(order_id));
-    console.log('detailOrder', detailOrderReducer.data.total_amount);
+    dispatch(getDetailOrderAction(request_order_id));
     dispatch(getBankListAction());
-    console.log('reducah', detailOrderReducer);
+    console.log('ini item', item);
   }, []);
 
   const handleSubmit = (values) => {
@@ -68,14 +67,14 @@ const CreateOrder2 = ({navigation, route}) => {
       dispatch(
         setPaymentAction(
           {
-            order_id,
+            request_order_id,
             bank_sender_account_name,
             bank_sender_account_number,
             bank_sender_id: bankListReducer.selectedBank,
             bank_receiver_account_name: bankReceiver.bank_account_name,
             bank_receiver_account_number: bankReceiver.bank_account_number,
             bank_receiver_id: bankReceiver.bank.id,
-            amount: data.total_amount,
+            amount: item.total_amount,
             transfer_proof_id: uploadImageReducer.data.id,
           },
           navigation,
@@ -105,17 +104,21 @@ const CreateOrder2 = ({navigation, route}) => {
               <ScrollView>
                 <Gap height={24} />
                 <View style={styles.content}>
-                  {data && (
-                    <CardOrder
-                      name={data.receiver_name}
-                      number={data.receiver_phone}
-                      location={data.receiver_address}
-                      date={data.schedule}
-                      image={data.details && data.details[0].image.url}
-                    />
-                  )}
-                  <Gap height={24} />
-                  <Text style={styles.h6Medium}>Pembayaran</Text>
+                  {item.orders.map((item, index) => (
+                    <View key={index}>
+                      <CardOrder
+                        name={item.receiver_name}
+                        number={item.receiver_phone}
+                        location={item.receiver_address}
+                        date={item.schedule}
+                        // image={item.details && item.details[0].image.url}
+                      />
+                      <Gap height={24} />
+                    </View>
+                  ))}
+                  <Text style={styles.h6Medium}>
+                    Pembayaran order {request_order_id}
+                  </Text>
                   <Gap height={24} />
                   <View style={styles.bankContainer}>
                     <Text style={styles.buttonMedium}>Transfer Bank</Text>
@@ -138,9 +141,7 @@ const CreateOrder2 = ({navigation, route}) => {
                   <Gap height={24} />
                   <View>
                     <Text style={styles.p2Bold}>Total Pembayaran</Text>
-                    <Text style={styles.p1Regular}>
-                      {detailOrderReducer.data.total_amount}
-                    </Text>
+                    <Text style={styles.p1Regular}>{item.total_amount}</Text>
                   </View>
                   <Gap height={24} />
                   <Input

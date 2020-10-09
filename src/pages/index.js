@@ -2,7 +2,7 @@ import Splash from './Splash';
 import Register from './Register';
 import Login from './Login';
 import EditName from './EditName';
-import RegisterDetail2 from './RegisterDetail2';
+import EditAddress from './EditAddress';
 import RegisterSuccess from './RegisterSuccess';
 import Home from './Home';
 import CreateOrder from './CreateOrder';
@@ -14,13 +14,15 @@ import ListCustomer from './ListCustomer';
 import AddCustomer from './AddCustomer';
 import Profile from './Profile';
 import UpdatePassword from './UpdatePassword';
+import ListRequestOrder from './ListRequestOrder';
+import TransitionScreen from './TransitionScreen';
 
 export {
   Splash,
   Register,
   Login,
   EditName,
-  RegisterDetail2,
+  EditAddress,
   RegisterSuccess,
   Home,
   CreateOrder,
@@ -32,4 +34,6 @@ export {
   AddCustomer,
   Profile,
   UpdatePassword,
+  ListRequestOrder,
+  TransitionScreen,
 };

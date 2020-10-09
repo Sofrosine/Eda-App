@@ -1,6 +1,7 @@
 import React, {memo, useEffect, useState} from 'react';
 import {
   ActivityIndicator,
+  Alert,
   FlatList,
   SafeAreaView,
   StyleSheet,
@@ -14,6 +15,8 @@ import {
   getOrderInactiveAction,
   getOrderPaginationInactiveAction,
   getOrderPaginationActiveAction,
+  getInvoiceListAction,
+  getTotalInvoiceAction,
 } from '../../redux/actions';
 import {colors, fonts} from '../../utils';
 
@@ -22,13 +25,23 @@ const MemoView = memo(View);
 const Home = ({navigation}) => {
   const [tabBarActive, setTabBar] = useState(true);
   const dispatch = useDispatch();
-  const {getOrderReducer} = useSelector((state) => state);
+  const {getOrderReducer, invoiceReducer} = useSelector((state) => state);
+  const {total} = invoiceReducer.totalAmount;
+
+  const handleCreateOrder = () => {
+    if (!total > 0) {
+      navigation.navigate('CreateOrder');
+    } else {
+      Alert.alert('Mohon membayar invoice Anda terlebih dahulu');
+    }
+  };
 
   useEffect(() => {
     tabBarActive
       ? dispatch(getOrderActiveAction())
       : dispatch(getOrderInactiveAction());
-    console.log('getOrder', getOrderReducer);
+    dispatch(getInvoiceListAction());
+    dispatch(getTotalInvoiceAction());
   }, [navigation]);
   return (
     <SafeAreaView style={styles.pages}>
@@ -109,10 +122,7 @@ const Home = ({navigation}) => {
       </View>
       <MemoView style={styles.buttonBarWrapper}>
         <View style={styles.buttonFloatWrapper}>
-          <Button
-            onPress={() => navigation.navigate('CreateOrder')}
-            type="float"
-          />
+          <Button onPress={handleCreateOrder} type="float" />
         </View>
         <View style={styles.bottomBarTextWrapper}>
           <Text style={styles.p3Regular}>Buat Order Baru</Text>

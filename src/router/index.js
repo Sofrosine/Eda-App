@@ -7,17 +7,19 @@ import {
   CreateOrder,
   CreateOrder2,
   DetailOrder,
+  EditAddress,
   Home,
   ListCustomer,
+  ListRequestOrder,
   Login,
   OrderVerificationProcess,
   OrderVerified,
   Profile,
   Register,
-  RegisterDetail2,
   RegisterSuccess,
   Splash,
   UpdatePassword,
+  TransitionScreen,
 } from '../pages';
 import EditName from '../pages/EditName';
 import EditOrder from '../pages/EditOrder';
@@ -35,7 +37,8 @@ const DrawerRouter = () => {
       <Drawer.Screen name="Home" component={Home} />
       <Drawer.Screen name="Profile" component={Profile} />
       <Drawer.Screen name="List Customer" component={ListCustomer} />
-      <Drawer.Screen name="Invoice" component={RegisterDetail2} />
+      <Drawer.Screen name="Invoice" component={ListCustomer} />
+      <Drawer.Screen name="List Request Order" component={ListRequestOrder} />
     </Drawer.Navigator>
   );
 };
@@ -90,8 +93,9 @@ const Router = () => {
       <Stack.Screen name="EditOrder" component={EditOrder} />
       <Stack.Screen name="AddCustomer" component={AddCustomer} />
       <Stack.Screen name="EditName" component={EditName} />
-      <Stack.Screen name="RegisterDetail2" component={RegisterDetail2} />
+      <Stack.Screen name="EditAddress" component={EditAddress} />
       <Stack.Screen name="UpdatePassword" component={UpdatePassword} />
+      <Stack.Screen name="TransitionScreen" component={TransitionScreen} />
     </Stack.Navigator>
   );
 };

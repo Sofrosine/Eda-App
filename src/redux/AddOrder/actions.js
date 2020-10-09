@@ -19,7 +19,7 @@ const addOrderFailed = (error) => ({
   payload: {error},
 });
 
-export const addOrderAction = (form, navigation) => {
+export const addOrderAction = (form, navigation, resetForm) => {
   return async (dispatch) => {
     dispatch(setLoadingAction(true));
     dispatch(addOrder());
@@ -33,6 +33,7 @@ export const addOrderAction = (form, navigation) => {
       district_id,
       payment_method,
     } = form;
+    console.log('shshshs', schedule);
     const {
       product_name,
       product_description,
@@ -43,6 +44,7 @@ export const addOrderAction = (form, navigation) => {
       category_id,
       product_image_id,
     } = form.details[0];
+
     try {
       const apiReq = await api('post', 'order', {
         schedule,
@@ -69,8 +71,25 @@ export const addOrderAction = (form, navigation) => {
       console.log('apiREQQQ', apiReq);
       dispatch(addOrderSuccess(apiReq));
       dispatch(setLoadingAction(false));
-      navigation.replace('CreateOrder2', {order_id: apiReq.data.data.id});
-      dispatch(resetUploadImageAction());
+      Alert.alert(
+        'Apakah Anda ingin menambah order?',
+        '',
+        [
+          {
+            text: 'Tidak',
+            onPress: () => navigation.replace('List Request Order'),
+            style: 'cancel',
+          },
+          {
+            text: 'Ya',
+            onPress: () => {
+              dispatch(resetUploadImageAction());
+              navigation.replace('TransitionScreen');
+            },
+          },
+        ],
+        {cancelable: false},
+      );
     } catch (error) {
       console.log('error add Order', error);
       dispatch(addOrderFailed(error));

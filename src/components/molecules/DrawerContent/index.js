@@ -1,15 +1,16 @@
 import {DrawerContentScrollView} from '@react-navigation/drawer';
 import React, {useEffect, useState} from 'react';
 import {
+  ActivityIndicator,
   Image,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
-  ActivityIndicator,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {
+  IC3DotWhite,
   ICContactWhite,
   ICHomeWhite,
   ICInvoiceWhite,
@@ -29,6 +30,7 @@ const DrawerContent = (props) => {
     ICProfileWhite,
     ICContactWhite,
     ICInvoiceWhite,
+    IC3DotWhite,
   ];
   const [user, setUser] = useState({});
   const handleGetUser = async () => {

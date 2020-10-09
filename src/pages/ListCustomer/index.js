@@ -21,7 +21,7 @@ const ListCustomer = ({navigation}) => {
   }, []);
   return (
     <SafeAreaView style={styles.pages}>
-      <Navbar title="List Customer" />
+      <Navbar onPress={() => navigation.openDrawer()} title="List Customer" />
       <View style={styles.content}>
         {loading ? (
           <View style={styles.contentEmpty}>

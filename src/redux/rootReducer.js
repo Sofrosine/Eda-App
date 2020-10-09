@@ -23,6 +23,8 @@ import customerReducer from './GetCustomer/reducers';
 import addCustomerReducer from './AddCustomer/reducers';
 import searchCustomerReducer from './SearchCustomer/reducers';
 import profileReducer from './Profile/reducers';
+import invoiceReducer from './Invoice/reducers';
+import requestOrderReducer from './RequestOrder/reducers';
 
 const appReducer = combineReducers({
   loginReducer,
@@ -49,6 +51,8 @@ const appReducer = combineReducers({
   addCustomerReducer,
   searchCustomerReducer,
   profileReducer,
+  invoiceReducer,
+  requestOrderReducer,
 });
 
 const rootReducer = (state, action) => {

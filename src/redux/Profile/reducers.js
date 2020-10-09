@@ -8,7 +8,7 @@ import {
   UPDATE_PROFILE,
   UPDATE_PROFILE_SUCCESS,
   UPDATE_PROFILE_FAILED,
-} from './constants';
+} from './constants'; 
 
 const initialState = {
   loading: true,

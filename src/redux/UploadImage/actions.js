@@ -7,7 +7,7 @@ import {
   SET_UPLOAD_IMAGE,
 } from './constants';
 import {setLoadingAction} from '../Loading/actions';
-import {errorHandler} from '../../utils';
+import {errorHandler, getData} from '../../utils';
 
 const uploadImage = () => ({
   type: UPLOAD_IMAGE,
@@ -31,9 +31,20 @@ const setUploadImage = (url, id) => ({
   type: SET_UPLOAD_IMAGE,
   payload: {url, id},
 });
+const getUser = async () => {
+  const token = await getData('@user_token');
+  const location = await getData('@user_location');
+  const phone = await getData('@user_phone');
+  return {
+    token,
+    location,
+    phone,
+  };
+};
 
 export const uploadImageAction = (formData) => {
   return async (dispatch) => {
+    const dataUser = await getUser();
     dispatch(setLoadingAction(true));
     console.log('formdatahh', formData);
     dispatch(uploadImage());
@@ -54,6 +65,7 @@ export const uploadImageAction = (formData) => {
         {
           headers: {
             'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${dataUser.token}`,
           },
         },
       );

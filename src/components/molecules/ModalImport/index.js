@@ -41,6 +41,7 @@ const ModalImport = ({isVisible, setVisible}) => {
         ) : data.customer && data.customer.length < 1 ? (
           <Text style={styles.buttonBlackBold}>Tidak ada data</Text>
         ) : (
+          data.customer &&
           data.customer.map((item, index) => (
             <View>
               <ListDetailOrder

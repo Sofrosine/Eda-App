@@ -101,3 +101,26 @@ const updateProfileFailed = (error) => ({
   type: UPDATE_PROFILE_FAILED,
   payload: {error},
 });
+
+export const updateProfileAction = (formData, navigation) => {
+  return async (dispatch) => {
+    dispatch(updateProfile());
+    try {
+      console.log('formdata profile ', formData);
+      const apiReq = await api('post', 'me', formData);
+      console.log('apireq update profile ', apiReq);
+      if (apiReq.data.success) {
+        dispatch(updateProfileSuccess(apiReq.data));
+        navigation.goBack();
+        dispatch(getProfileAction());
+        ToastAndroid.show(apiReq.data.message, 2000);
+      } else {
+        dispatch(updateProfileSuccess(apiReq.data));
+        Alert.alert(apiReq.data.message);
+      }
+    } catch (error) {
+      console.log('error update profile', error);
+      dispatch(updateProfileFailed(error));
+    }
+  };
+};

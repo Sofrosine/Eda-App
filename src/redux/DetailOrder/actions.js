@@ -23,7 +23,7 @@ const getDetailOrderFailed = (error) => ({
 export const getDetailOrderAction = (id) => {
   return async (dispatch) => {
     dispatch(setLoadingAction(true));
-    dispatch(getDetailOrder());
+    dispatch(getDetailOrder()); 
     try {
       const apiReq = await api('get', `order/detail?id=${id}`);
       dispatch(getDetailOrderSuccess(apiReq.data.data));

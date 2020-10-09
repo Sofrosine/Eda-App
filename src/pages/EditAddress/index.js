@@ -1,7 +1,9 @@
 import {Picker} from '@react-native-community/picker';
+import {Formik} from 'formik';
 import React, {useEffect} from 'react';
 import {
   ActivityIndicator,
+  Alert,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -10,15 +12,9 @@ import {
 } from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 import {useDispatch, useSelector} from 'react-redux';
+import * as yup from 'yup';
 import {ICEda, ICLocationOrange} from '../../assets';
-import {
-  Button,
-  Dropdown,
-  Gap,
-  Input,
-  InputMap,
-  ProgressBar,
-} from '../../components';
+import {Button, Dropdown, Gap, InputMap} from '../../components';
 import {
   getLocationAction,
   getProvinceAction,
@@ -26,26 +22,11 @@ import {
   setCityAction,
   setDistrictAction,
   setProvinceAction,
-  setRegisterAction,
+  updateProfileAction,
 } from '../../redux/actions';
 import {colors, fonts} from '../../utils';
-import {Formik} from 'formik';
-import * as yup from 'yup';
 
-const registerSchema = yup.object({
-  merchant_phone: yup.string().required(),
-});
-
-const RegisterDetail2 = ({navigation, route}) => {
-  const {
-    name,
-    email,
-    password,
-    password_confirmation,
-    merchant_name,
-    category_id,
-    merchant_image_id,
-  } = route.params;
+const EditAddress = ({navigation}) => {
   const dispatch = useDispatch();
   const {
     autoCompleteReducer,
@@ -53,35 +34,54 @@ const RegisterDetail2 = ({navigation, route}) => {
     provinceReducer,
     cityReducer,
     districtReducer,
+    profileReducer,
   } = useSelector((state) => state);
   const {data, selectedData} = autoCompleteReducer;
   const {latitude, longitude} = getLocationReducer;
-  const handleRegister = (form) => {
+  const {
+    merchant_name,
+    merchant_phone,
+    merchant_address,
+    category,
+  } = profileReducer.data.merchant;
+
+  const handleChangeAddress = (form) => {
+    console.log('jyann');
     if (selectedData.length < 1) {
-      return alert('Harap lengkapi data yang ada');
+      return Alert.alert('Harap lengkapi data yang ada');
     }
     if (districtReducer.selectedDistrict === 'placeholder') {
-      return alert('Harap lengkapi data yang ada');
+      return Alert.alert('Harap lengkapi data yang ada');
     } else {
-      dispatch(
-        setRegisterAction( 
-          {
-            name,
-            email,
-            password,
-            password_confirmation,
-            merchant_name,
-            merchant_phone: form.merchant_phone,
-            merchant_address: selectedData,
-            category_id,
-            district_id: districtReducer.selectedDistrict,
-            merchant_image_id,
-            merchant_latitude: latitude,
-            merchant_longitude: longitude,
-          },
-          navigation,
-        ),
+      const formData = new FormData();
+      formData.append('name', merchant_name || '-');
+      formData.append('merchant_name', merchant_name || '-');
+      formData.append('email', profileReducer.data.email);
+      formData.append('merchant_phone', merchant_phone || '081231264912');
+      formData.append(
+        'merchant_address',
+        selectedData || merchant_address || 'Belum ada alamat',
       );
+      formData.append(
+        'district_id',
+        districtReducer.selectedDistrict || 3101010,
+      );
+      formData.append('category_id', category.id || 1);
+      formData.append('merchant_latitude', latitude);
+      formData.append('merchant_longitude', longitude);
+      dispatch(updateProfileAction(formData, navigation));
+      // dispatch(
+      //   setRegisterAction(
+      //     {
+      //       merchant_phone: form.merchant_phone,
+      //       merchant_address: selectedData,
+      //       district_id: districtReducer.selectedDistrict,
+      //       merchant_latitude: latitude,
+      //       merchant_longitude: longitude,
+      //     },
+      //     navigation,
+      //   ),
+      // );
     }
   };
 
@@ -93,36 +93,13 @@ const RegisterDetail2 = ({navigation, route}) => {
   return (
     <SafeAreaView style={styles.pages}>
       <StatusBar backgroundColor={colors.primary} />
-      <ProgressBar percent={100} />
       <View style={styles.content}>
-        <Formik
-          initialValues={{
-            merchant_phone: '',
-            // merchant_address: selectedData,
-          }}
-          validationSchema={registerSchema}
-          onSubmit={(value) => {
-            console.log('value', value);
-            handleRegister(value);
-          }}>
+        <Formik>
           {(props) => (
             <ScrollView contentContainerStyle={{paddingHorizontal: 16}}>
               <Gap height={34} />
               <ICEda style={styles.icon} height={80} width={80} />
               <Gap height={27} />
-              <Input
-                label="Nomor Telepon"
-                required
-                placeholder="Masukkan nomor toko Anda di sini"
-                type="phone"
-                onChangeText={props.handleChange('merchant_phone')}
-                value={props.values.merchant_phone}
-                errorText={
-                  props.touched.merchant_phone && props.errors.merchant_phone
-                }
-                onBlur={props.handleBlur('merchant_phone')}
-              />
-              <Gap height={24} />
               <InputMap
                 value={selectedData}
                 data={data}
@@ -223,13 +200,15 @@ const RegisterDetail2 = ({navigation, route}) => {
                 </>
               )}
               <Gap height={30} />
-              <Button
-                onPress={props.handleSubmit}
-                text="Selesaikan"
-                position="center"
-              />
-              <Gap height={24} />
-              <Button text="Login Di sini" type="nude" position="center" />
+              {profileReducer.loadingProfile ? (
+                <ActivityIndicator size={32} color={colors.secondary} />
+              ) : (
+                <Button
+                  onPress={handleChangeAddress}
+                  text="Update Data"
+                  position="center"
+                />
+              )}
               <Gap height={34} />
             </ScrollView>
           )}
@@ -239,7 +218,7 @@ const RegisterDetail2 = ({navigation, route}) => {
   );
 };
 
-export default RegisterDetail2;
+export default EditAddress;
 
 const styles = StyleSheet.create({
   pages: {

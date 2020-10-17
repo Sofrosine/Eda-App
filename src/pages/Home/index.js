@@ -33,6 +33,7 @@ const Home = ({navigation}) => {
       navigation.navigate('CreateOrder');
     } else {
       Alert.alert('Mohon membayar invoice Anda terlebih dahulu');
+      navigation.navigate('List Request Order');
     }
   };
 

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {
   ActivityIndicator,
   SafeAreaView,
@@ -12,7 +12,6 @@ import {ICEda} from '../../assets';
 import {Button, Gap, Input} from '../../components';
 import {setLoginAction, setLoginErrorAction} from '../../redux/actions';
 import {colors, useForm} from '../../utils';
-import AsyncStorage from '@react-native-community/async-storage';
 
 const Login = ({navigation}) => {
   const [form, setForm] = useForm({

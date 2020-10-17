@@ -43,17 +43,13 @@ const CreateOrder2 = ({navigation, route}) => {
   const dispatch = useDispatch();
   const {
     availablePaymentReducer,
-    detailOrderReducer,
     bankListReducer,
     uploadImageReducer,
   } = useSelector((state) => state);
-  const {data} = detailOrderReducer;
 
   useEffect(() => {
     dispatch(getAvailablePaymentAction());
-    dispatch(getDetailOrderAction(request_order_id));
     dispatch(getBankListAction());
-    console.log('ini item', item);
   }, []);
 
   const handleSubmit = (values) => {

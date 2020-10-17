@@ -1,18 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import {
+  Alert,
   Image,
   SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
   View,
-  TouchableOpacity,
-  Alert,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {IMGBarang1, IMGMenuBackground} from '../../assets';
-import {Badge, Gap, ListDetailOrder, Navbar, Button} from '../../components';
-import {getDetailOrderAction, cancelOrderAction} from '../../redux/actions';
+import {IMGMenuBackground} from '../../assets';
+import {Badge, Button, Gap, ListDetailOrder, Navbar} from '../../components';
+import {cancelOrderAction, getDetailOrderAction} from '../../redux/actions';
 import {colors, fonts} from '../../utils';
 
 const DetailOrder = ({route, navigation}) => {
@@ -23,9 +22,12 @@ const DetailOrder = ({route, navigation}) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getDetailOrderAction(id));
-    setTimeout(() => {
+    const yo = setTimeout(() => {
       setUpdate(!update);
     }, 1000);
+    () => {
+      clearTimeout(yo);
+    };
   }, []);
 
   const handleCancel = () => {
@@ -67,7 +69,7 @@ const DetailOrder = ({route, navigation}) => {
             </>
           )}
           <View style={styles.rowCenterBetween}>
-            {details && (
+            {data.details && details && (
               <>
                 <View style={{opacity: 0}}>
                   <Badge status={data.order_status} />
@@ -156,7 +158,10 @@ const DetailOrder = ({route, navigation}) => {
               <Button
                 text="Lanjutkan"
                 onPress={() =>
-                  navigation.navigate('CreateOrder2', {order_id: data.id})
+                  navigation.navigate('CreateOrder2', {
+                    request_order_id: data.request_order_id.id,
+                    item: data.request_order_id,
+                  })
                 }
               />
               <Gap height={24} />

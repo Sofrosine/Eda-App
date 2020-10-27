@@ -11,7 +11,7 @@ const initialState = {
   loadingAmount: false,
   loadingList: false,
   data: [],
-  totalAmount: 0,
+  totalAmount: {total: 'No Data'},
   errorAmount: false,
   errorList: false,
 };

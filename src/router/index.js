@@ -20,6 +20,7 @@ import {
   Splash,
   UpdatePassword,
   TransitionScreen,
+  Invoice,
 } from '../pages';
 import EditName from '../pages/EditName';
 import EditOrder from '../pages/EditOrder';
@@ -37,7 +38,7 @@ const DrawerRouter = () => {
       <Drawer.Screen name="Home" component={Home} />
       <Drawer.Screen name="Profile" component={Profile} />
       <Drawer.Screen name="List Customer" component={ListCustomer} />
-      <Drawer.Screen name="Invoice" component={ListCustomer} />
+      <Drawer.Screen name="Invoice" component={Invoice} />
       <Drawer.Screen name="List Request Order" component={ListRequestOrder} />
     </Drawer.Navigator>
   );
@@ -82,6 +83,7 @@ const Router = () => {
       <Stack.Screen name="Auth" component={AuthRouter} />
       <Stack.Screen name="RegisterSuccess" component={RegisterSuccess} />
       <Stack.Screen name="HomeDrawer" component={DrawerRouter} />
+      <Drawer.Screen name="ListRequestOrder" component={ListRequestOrder} />
       <Stack.Screen name="CreateOrder" component={CreateOrder} />
       <Stack.Screen name="CreateOrder2" component={CreateOrder2} />
       <Stack.Screen

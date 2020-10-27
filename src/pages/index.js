@@ -16,6 +16,7 @@ import Profile from './Profile';
 import UpdatePassword from './UpdatePassword';
 import ListRequestOrder from './ListRequestOrder';
 import TransitionScreen from './TransitionScreen';
+import Invoice from './Invoice';
 
 export {
   Splash,
@@ -36,4 +37,5 @@ export {
   UpdatePassword,
   ListRequestOrder,
   TransitionScreen,
+  Invoice,
 };

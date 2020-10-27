@@ -9,7 +9,14 @@ import {
   View,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {Button, CardTask, Gap, HomeTabBar, Navbar} from '../../components';
+import {
+  Button,
+  CardTask,
+  Gap,
+  HomeTabBar,
+  Navbar,
+  NotificationAlert,
+} from '../../components';
 import {
   getOrderActiveAction,
   getOrderInactiveAction,
@@ -25,8 +32,13 @@ const MemoView = memo(View);
 const Home = ({navigation}) => {
   const [tabBarActive, setTabBar] = useState(true);
   const dispatch = useDispatch();
-  const {getOrderReducer, invoiceReducer} = useSelector((state) => state);
+  const {getOrderReducer, invoiceReducer, profileReducer} = useSelector(
+    (state) => state,
+  );
   const {total} = invoiceReducer.totalAmount;
+  const {showNotificationAlert, notificationTitle} = useSelector(
+    (state) => state.showNotificationAlertReducer,
+  );
 
   const handleCreateOrder = () => {
     if (!total > 0) {
@@ -43,26 +55,68 @@ const Home = ({navigation}) => {
       : dispatch(getOrderInactiveAction());
     dispatch(getInvoiceListAction());
     dispatch(getTotalInvoiceAction());
+    console.log('toto', total);
   }, [navigation]);
   return (
-    <SafeAreaView style={styles.pages}>
-      <Navbar onPress={() => navigation.openDrawer()} title="Home" />
-      <View style={styles.content}>
-        <Gap height={16} />
-        <View style={{paddingHorizontal: 16}}>
-          <HomeTabBar setState={setTabBar} isActive={tabBarActive} />
-        </View>
-        <Gap height={16} />
-        <View style={[styles.content]}>
-          {tabBarActive ? (
-            getOrderReducer.activeData &&
-            getOrderReducer.activeData.length > 0 ? (
+    <>
+      {/* {showNotificationAlert && <NotificationAlert title={notificationTitle} />} */}
+      <SafeAreaView style={styles.pages}>
+        <Navbar onPress={() => navigation.openDrawer()} title="Home" />
+        <View style={styles.content}>
+          <Gap height={16} />
+          <View style={{paddingHorizontal: 16}}>
+            <HomeTabBar setState={setTabBar} isActive={tabBarActive} />
+          </View>
+          <Gap height={16} />
+          <View style={[styles.content]}>
+            {tabBarActive ? (
+              getOrderReducer.activeData &&
+              getOrderReducer.activeData.length > 0 ? (
+                <FlatList
+                  onEndReached={() =>
+                    dispatch(getOrderPaginationActiveAction())
+                  }
+                  onEndReachedThreshold={0.5}
+                  contentContainerStyle={{paddingHorizontal: 16}}
+                  keyExtractor={(item) => item.id}
+                  data={getOrderReducer.activeData}
+                  renderItem={({item}) => (
+                    <>
+                      <CardTask
+                        name={item.receiver_name}
+                        type={item.order_status}
+                        phone={item.receiver_phone}
+                        location={item.receiver_address}
+                        date={item.created_at}
+                        onPress={() =>
+                          navigation.navigate('DetailOrder', {
+                            id: item.id,
+                          })
+                        }
+                      />
+                      <Gap height={16} />
+                    </>
+                  )}
+                />
+              ) : (
+                <Text
+                  style={[
+                    styles.h6Black,
+                    {textAlign: 'center', marginTop: 20},
+                  ]}>
+                  No active data
+                </Text>
+              )
+            ) : getOrderReducer.inactiveData &&
+              getOrderReducer.inactiveData.length > 0 ? (
               <FlatList
-                onEndReached={() => dispatch(getOrderPaginationActiveAction())}
+                onEndReached={() =>
+                  dispatch(getOrderPaginationInactiveAction())
+                }
                 onEndReachedThreshold={0.5}
                 contentContainerStyle={{paddingHorizontal: 16}}
                 keyExtractor={(item) => item.id}
-                data={getOrderReducer.activeData}
+                data={getOrderReducer.inactiveData}
                 renderItem={({item}) => (
                   <>
                     <CardTask
@@ -84,52 +138,21 @@ const Home = ({navigation}) => {
             ) : (
               <Text
                 style={[styles.h6Black, {textAlign: 'center', marginTop: 20}]}>
-                No active data
+                No inactive data
               </Text>
-            )
-          ) : getOrderReducer.inactiveData &&
-            getOrderReducer.inactiveData.length > 0 ? (
-            <FlatList
-              onEndReached={() => dispatch(getOrderPaginationInactiveAction())}
-              onEndReachedThreshold={0.5}
-              contentContainerStyle={{paddingHorizontal: 16}}
-              keyExtractor={(item) => item.id}
-              data={getOrderReducer.inactiveData}
-              renderItem={({item}) => (
-                <>
-                  <CardTask
-                    name={item.receiver_name}
-                    type={item.order_status}
-                    phone={item.receiver_phone}
-                    location={item.receiver_address}
-                    date={item.created_at}
-                    onPress={() =>
-                      navigation.navigate('DetailOrder', {
-                        id: item.id,
-                      })
-                    }
-                  />
-                  <Gap height={16} />
-                </>
-              )}
-            />
-          ) : (
-            <Text
-              style={[styles.h6Black, {textAlign: 'center', marginTop: 20}]}>
-              No inactive data
-            </Text>
-          )}
+            )}
+          </View>
         </View>
-      </View>
-      <MemoView style={styles.buttonBarWrapper}>
-        <View style={styles.buttonFloatWrapper}>
-          <Button onPress={handleCreateOrder} type="float" />
-        </View>
-        <View style={styles.bottomBarTextWrapper}>
-          <Text style={styles.p3Regular}>Buat Order Baru</Text>
-        </View>
-      </MemoView>
-    </SafeAreaView>
+        <MemoView style={styles.buttonBarWrapper}>
+          <View style={styles.buttonFloatWrapper}>
+            <Button onPress={handleCreateOrder} type="float" />
+          </View>
+          <View style={styles.bottomBarTextWrapper}>
+            <Text style={styles.p3Regular}>Buat Order Baru</Text>
+          </View>
+        </MemoView>
+      </SafeAreaView>
+    </>
   );
 };
 

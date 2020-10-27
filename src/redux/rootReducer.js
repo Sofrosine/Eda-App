@@ -25,6 +25,7 @@ import searchCustomerReducer from './SearchCustomer/reducers';
 import profileReducer from './Profile/reducers';
 import invoiceReducer from './Invoice/reducers';
 import requestOrderReducer from './RequestOrder/reducers';
+import showNotificationAlertReducer from './ShowNotificationAlert/reducers';
 
 const appReducer = combineReducers({
   loginReducer,
@@ -53,6 +54,7 @@ const appReducer = combineReducers({
   profileReducer,
   invoiceReducer,
   requestOrderReducer,
+  showNotificationAlertReducer,
 });
 
 const rootReducer = (state, action) => {

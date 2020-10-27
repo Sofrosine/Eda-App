@@ -7,6 +7,7 @@ import Dropdown from './Dropdown';
 import DatePicker from './DatePicker';
 import Badge from './Badge';
 import Avatar from './Avatar';
+import NotificationAlert from './NotificationAlert';
 
 export {
   Gap,
@@ -18,4 +19,5 @@ export {
   DatePicker,
   Badge,
   Avatar,
+  NotificationAlert,
 };

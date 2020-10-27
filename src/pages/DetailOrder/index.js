@@ -2,10 +2,12 @@ import React, {useEffect, useState} from 'react';
 import {
   Alert,
   Image,
+  Linking,
   SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
@@ -80,14 +82,24 @@ const DetailOrder = ({route, navigation}) => {
             )}
           </View>
           <Gap height={24} />
-          <View style={[styles.rowCenter, styles.avatarContainer]}>
-            <Image source={IMGMenuBackground} style={styles.avatar} />
-            <Gap width={8} />
-            <View>
-              <Text style={styles.p2GrayRegular}>Nama Driver</Text>
-              <Gap height={4} />
-              <Text style={styles.p1Bold}>Ridwan M.</Text>
+          <View style={[styles.rowBetweenCenter, styles.avatarContainer]}>
+            <View style={styles.rowCenter}>
+              <Image source={IMGMenuBackground} style={styles.avatar} />
+              <Gap width={8} />
+              <View>
+                <Text style={styles.p2GrayRegular}>Nama Driver</Text>
+                <Gap height={4} />
+                <Text style={styles.p1Bold}>{data.driver.driver_name}</Text>
+              </View>
             </View>
+            {data.order_status !== 'completed' && (
+              <TouchableOpacity
+                onPress={() => {
+                  Linking.openURL(`tel:${data.driver.driver_phone}`);
+                }}>
+                <Text style={styles.p2GreenBold}>Hubungi</Text>
+              </TouchableOpacity>
+            )}
           </View>
           <Gap height={16} />
           <ListDetailOrder
@@ -96,7 +108,7 @@ const DetailOrder = ({route, navigation}) => {
           />
           <Gap height={16} />
           <ListDetailOrder
-            title="Nomor Handphone"
+            title="Nomor Handphone Penerima"
             subtitle={data.receiver_phone}
           />
           <Gap height={16} />
@@ -209,6 +221,11 @@ const styles = StyleSheet.create({
     fontFamily: fonts.primary[700],
     color: colors.text.black,
   },
+  p2GreenBold: {
+    fontSize: 12,
+    fontFamily: fonts.primary[700],
+    color: 'green',
+  },
   badges: {
     backgroundColor: colors.tersiary,
     width: 72,
@@ -230,6 +247,11 @@ const styles = StyleSheet.create({
   rowCenter: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  rowBetweenCenter: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   buttonWhiteText: {
     fontSize: 16,

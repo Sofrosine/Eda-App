@@ -1,19 +1,25 @@
 import {NavigationContainer} from '@react-navigation/native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import {Router} from './src';
 import {Provider, useSelector} from 'react-redux';
 import configureStore from './src/redux/store';
-import {Loading} from './src/components';
-import '@react-native-firebase/crashlytics';
+import {Loading, NotificationAlert} from './src/components';
+import {navigationRef} from './RootNavigation';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const MainApp = () => {
   const {loading} = useSelector((state) => state.loadingReducer);
+  const {showNotificationAlert, notificationTitle} = useSelector(
+    (state) => state.showNotificationAlertReducer,
+  );
+
   return (
     <>
-      <NavigationContainer>
+      <NavigationContainer ref={navigationRef}>
         <Router />
       </NavigationContainer>
       {loading && <Loading />}
+      {showNotificationAlert && <NotificationAlert title={notificationTitle} />}
     </>
   );
 };

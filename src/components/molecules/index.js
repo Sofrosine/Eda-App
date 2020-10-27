@@ -14,6 +14,7 @@ import InputDate from './InputDate';
 import CustomerList from './CustomerList';
 import ModalImport from './ModalImport';
 import CardRequestOrder from './CardRequestOrder';
+import CardInvoice from './CardInvoice';
 
 export {
   UploadButton,
@@ -32,4 +33,5 @@ export {
   CustomerList,
   ModalImport,
   CardRequestOrder,
+  CardInvoice,
 };

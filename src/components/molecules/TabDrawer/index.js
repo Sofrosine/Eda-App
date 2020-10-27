@@ -1,10 +1,19 @@
 import React from 'react';
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Alert,
+  ToastAndroid,
+} from 'react-native';
 import {Gap} from '../../atoms';
-import {fonts, colors} from '../../../utils';
-import {useNavigation} from '@react-navigation/native';
+import {fonts, colors, getData} from '../../../utils';
+import {CommonActions, useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {useDispatch} from 'react-redux';
+import {setLoadingAction} from '../../../redux/actions';
+import {api} from '../../../api';
 
 const TabDrawer = ({text, isActive, icon, routeName, logout}) => {
   const Icon = icon;
@@ -14,9 +23,47 @@ const TabDrawer = ({text, isActive, icon, routeName, logout}) => {
     if (!logout) {
       navigation.navigate(routeName);
     } else {
-      AsyncStorage.clear();
-      dispatch({type: 'DELETE_STATE'});
-      navigation.replace('Auth');
+      Alert.alert(
+        'Apakah Anda yakin ingin keluar?',
+        '',
+        [
+          {
+            text: 'Tidak',
+            onPress: () => {},
+            style: 'cancel',
+          },
+          {
+            text: 'Ya',
+            onPress: async () => {
+              dispatch(setLoadingAction(true));
+              const imei = await getData('imeiToken');
+              console.log('ittitmei', imei)
+              try {
+                const apiReq = await api('post', 'auth/logout', {
+                  imei,
+                });
+                console.log('apiReq logout success', apiReq);
+                AsyncStorage.removeItem('@user_token');
+                dispatch({type: 'DELETE_STATE'});
+                navigation.dispatch(
+                  CommonActions.reset({
+                    index: 0,
+                    routes: [{name: 'Auth'}],
+                  }),
+                );
+                ToastAndroid.show('Berhasil melakukan logout', 2000);
+              } catch (error) {
+                console.log('apiReq logout error', error);
+                Alert.alert(
+                  'Ada masalah saat melakukan logout, harap coba lagi',
+                );
+              }
+              dispatch(setLoadingAction(false));
+            },
+          },
+        ],
+        {cancelable: false},
+      );
     }
   };
   return (

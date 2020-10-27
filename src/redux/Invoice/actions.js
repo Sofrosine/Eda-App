@@ -53,7 +53,11 @@ export const getTotalInvoiceAction = () => {
     try {
       const apiReq = await api('get', 'invoice/total');
       console.log('apireq get total invoice', apiReq);
-      dispatch(getTotalInvoiceSuccess(apiReq.data.data));
+      if (apiReq.data.success) {
+        dispatch(getTotalInvoiceSuccess(apiReq.data.data));
+      } else {
+        dispatch(getTotalInvoiceSuccess('No Data'));
+      }
     } catch (error) {
       console.log('error get total invoice', error);
       dispatch(getTotalInvoiceFailed(error));

@@ -20,7 +20,7 @@ import {
 import {colors, fonts, getData} from '../../../utils';
 import {Gap} from '../../atoms';
 import TabDrawer from '../TabDrawer';
-
+ 
 const DrawerContent = (props) => {
   const [isLoading, setLoading] = useState(true);
   const routeActiveIndex = props.state.index;

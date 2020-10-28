@@ -25,7 +25,7 @@ const Invoice = ({navigation}) => {
         contentContainerStyle={styles.content}
         keyExtractor={(item) => item.id}
         data={
-          !invoiceReducer.data.invoices
+          invoiceReducer.data && !invoiceReducer.data.invoices
             ? invoiceReducer.data
             : invoiceReducer.data.invoices.items
         }

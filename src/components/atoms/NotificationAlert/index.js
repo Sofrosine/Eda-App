@@ -17,7 +17,7 @@ const NotificationAlert = () => {
   const handleClose = () => {
     dispatch(closeNotificationAction());
   };
- 
+
   const handleDetail = () => {
     dispatch(closeNotificationAction());
     console.log('secc', section);

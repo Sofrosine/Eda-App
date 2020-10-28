@@ -5,7 +5,7 @@ import {
   SET_LOGIN_ERROR,
 } from './constants';
 import {api} from '../../api';
-import {storeData} from '../../utils';
+import {getData, storeData} from '../../utils';
 import Axios from 'axios';
 import {Alert} from 'react-native';
 import {setLoadingAction} from '../Loading/actions';
@@ -29,9 +29,19 @@ const setLoginError = (errorStatus) => ({
   type: SET_LOGIN_ERROR,
   payload: {errorStatus},
 });
+const getUser = async () => {
+  const imeiToken = await getData('imeiToken');
+  let fcmToken = await getData('fcmToken');
+
+  return {
+    imeiToken,
+    fcmToken,
+  };
+};
 
 export const setLoginAction = (email, password, navigation) => {
   return async (dispatch) => {
+    const dataUser = await getUser();
     dispatch(setLoadingAction(true));
     dispatch(setLogin());
     try {
@@ -40,8 +50,8 @@ export const setLoginAction = (email, password, navigation) => {
         {
           email,
           password,
-          imei: 'aksjd',
-          firebase_token: 'askdj',
+          imei: dataUser.imeiToken,
+          firebase_token: dataUser.fcmToken,
         },
       );
       console.log('apireqq', apiReq);

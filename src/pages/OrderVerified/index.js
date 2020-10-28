@@ -4,11 +4,17 @@ import {ICVerified} from '../../assets';
 import {Gap, Navbar, Button} from '../../components';
 import {colors, fonts} from '../../utils';
 import {useDispatch} from 'react-redux';
+import {CommonActions} from '@react-navigation/native';
 
 const OrderVerified = ({navigation}) => {
   const dispatch = useDispatch();
   const handleDone = () => {
-    navigation.replace('HomeDrawer');
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{name: 'HomeDrawer'}],
+      }),
+    );
     dispatch({type: 'DELETE_STATE'});
   };
   return (

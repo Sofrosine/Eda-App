@@ -46,7 +46,7 @@ const setPageOrder = () => ({
 
 const resetPageOrder = () => ({
   type: RESET_PAGE_ORDER,
-});
+}); 
 
 const stopPaginationActiveOrder = (paginationStatus) => ({
   type: STOP_PAGINATION_ACTIVE_ORDER,

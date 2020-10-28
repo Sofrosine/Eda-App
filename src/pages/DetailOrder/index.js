@@ -82,25 +82,29 @@ const DetailOrder = ({route, navigation}) => {
             )}
           </View>
           <Gap height={24} />
-          <View style={[styles.rowBetweenCenter, styles.avatarContainer]}>
-            <View style={styles.rowCenter}>
-              <Image source={IMGMenuBackground} style={styles.avatar} />
-              <Gap width={8} />
-              <View>
-                <Text style={styles.p2GrayRegular}>Nama Driver</Text>
-                <Gap height={4} />
-                <Text style={styles.p1Bold}>{data.driver.driver_name}</Text>
+          {data.driver && (
+            <View style={[styles.rowBetweenCenter, styles.avatarContainer]}>
+              <View style={styles.rowCenter}>
+                <Image source={IMGMenuBackground} style={styles.avatar} />
+                <Gap width={8} />
+                <View>
+                  <Text style={styles.p2GrayRegular}>Nama Driver</Text>
+                  <Gap height={4} />
+                  <Text style={styles.p1Bold}>
+                    {data.driver && data.driver.driver_name}
+                  </Text>
+                </View>
               </View>
+              {data.order_status !== 'completed' && (
+                <TouchableOpacity
+                  onPress={() => {
+                    Linking.openURL(`tel:${data.driver.driver_phone}`);
+                  }}>
+                  <Text style={styles.p2GreenBold}>Hubungi</Text>
+                </TouchableOpacity>
+              )}
             </View>
-            {data.order_status !== 'completed' && (
-              <TouchableOpacity
-                onPress={() => {
-                  Linking.openURL(`tel:${data.driver.driver_phone}`);
-                }}>
-                <Text style={styles.p2GreenBold}>Hubungi</Text>
-              </TouchableOpacity>
-            )}
-          </View>
+          )}
           <Gap height={16} />
           <ListDetailOrder
             title="Nama Penerima"

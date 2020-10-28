@@ -5,7 +5,11 @@ import {ICEda} from '../../assets';
 import {colors, getData, storeData} from '../../utils';
 import UUIDGenerator from 'react-native-uuid-generator';
 import {useDispatch} from 'react-redux';
-import {showNotificationAction} from '../../redux/actions';
+import {
+  showNotificationAction,
+  getOrderActiveAction,
+  getOrderInactiveAction,
+} from '../../redux/actions';
 
 const Splash = ({navigation}) => {
   // const handleNavigation = async () => {
@@ -42,7 +46,7 @@ const Splash = ({navigation}) => {
   // GET FCM TOKEN
   const getToken = async () => {
     let fcmToken = await getData('fcmToken');
-    console.log('fcm', fcmToken)
+    console.log('fcm', fcmToken);
     if (!fcmToken) {
       fcmToken = await firebase.messaging().getToken();
       console.log('fcmToken', fcmToken);
@@ -52,7 +56,7 @@ const Splash = ({navigation}) => {
       }
     }
     let imeiToken = await getData('imeiToken');
-    console.log('imeitoken', imeiToken)
+    console.log('imeitoken', imeiToken);
     if (!imeiToken) {
       UUIDGenerator.getRandomUUID().then(async (uuid) => {
         await storeData('imeiToken', uuid);
@@ -82,7 +86,9 @@ const Splash = ({navigation}) => {
         const {title, body, data} = notification;
         console.log('notiff', notification);
         showNotificationAlert(title, body, data);
-        console.log('1');
+        // console.log('1');
+        dispatch(getOrderActiveAction());
+        dispatch(getOrderInactiveAction());
       });
 
     // [***SAAT APP JALAN DI BG***]
@@ -95,7 +101,9 @@ const Splash = ({navigation}) => {
         //   id: title,
         // });
         navigation.navigate('ListOrderRequest');
-        console.log('2');
+        // console.log('2');
+        dispatch(getOrderActiveAction());
+        dispatch(getOrderInactiveAction());
       });
 
     // [***DIBUKA SAAT KONDISI APP CLOSE***]
@@ -105,7 +113,9 @@ const Splash = ({navigation}) => {
     if (notificationOpen) {
       const {title, body} = notificationOpen.notification;
       // showNotificationAlert(title, body);
-      console.log('3');
+      // console.log('3');
+      dispatch(getOrderActiveAction());
+      dispatch(getOrderInactiveAction());
     }
 
     const messageListener = firebase.messaging().onMessage((message) => {

@@ -11,6 +11,7 @@ import {
 } from './constants';
 import {api} from '../../api';
 import {Alert, ToastAndroid} from 'react-native';
+import {storeData} from '../../utils';
 
 // [----PROFILE-----]
 const getProfile = () => ({
@@ -34,6 +35,7 @@ export const getProfileAction = () => {
       const apiReq = await api('get', 'me');
       console.log('apireq get profile ', apiReq);
       dispatch(getProfileSuccess(apiReq.data.data));
+      storeData('@user_data', apiReq.data.data);
     } catch (error) {
       console.log('error get profile', error);
       dispatch(getProfileFailed(error));

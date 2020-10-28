@@ -26,7 +26,7 @@ const TabDrawer = ({text, isActive, icon, routeName, logout}) => {
       Alert.alert(
         'Apakah Anda yakin ingin keluar?',
         '',
-        [
+        [ 
           {
             text: 'Tidak',
             onPress: () => {},
@@ -39,6 +39,7 @@ const TabDrawer = ({text, isActive, icon, routeName, logout}) => {
               const imei = await getData('imeiToken');
               console.log('ittitmei', imei)
               try {
+                console.log('aa')
                 const apiReq = await api('post', 'auth/logout', {
                   imei,
                 });
@@ -57,7 +58,7 @@ const TabDrawer = ({text, isActive, icon, routeName, logout}) => {
                 Alert.alert(
                   'Ada masalah saat melakukan logout, harap coba lagi',
                 );
-              }
+              } 
               dispatch(setLoadingAction(false));
             },
           },

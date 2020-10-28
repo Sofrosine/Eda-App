@@ -77,7 +77,11 @@ export const addOrderAction = (form, navigation, resetForm) => {
         [
           {
             text: 'Tidak',
-            onPress: () => navigation.replace('List Request Order'),
+            onPress: () =>
+              navigation.replace('CreateOrder2', {
+                item: apiReq.data.data.request_order_id,
+                request_order_id: apiReq.data.data.request_order_id.id,
+              }),
             style: 'cancel',
           },
           {

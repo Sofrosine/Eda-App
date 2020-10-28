@@ -25,7 +25,7 @@ import {
   getInvoiceListAction,
   getTotalInvoiceAction,
 } from '../../redux/actions';
-import {colors, fonts} from '../../utils';
+import {colors, fonts, getData} from '../../utils';
 
 const MemoView = memo(View);
 
@@ -40,8 +40,14 @@ const Home = ({navigation}) => {
     (state) => state.showNotificationAlertReducer,
   );
 
-  const handleCreateOrder = () => {
-    if (!total > 0) {
+  const handleCreateOrder = async () => {
+    const getUser = await getData('@user_data');
+
+    console.log('getuser', getUser);
+
+    if (!getUser.merchant.is_complete) {
+      return Alert.alert('Mohon lengkapi profile Anda terlebih dahulu');
+    } else if (!total > 0) {
       navigation.navigate('CreateOrder');
     } else {
       Alert.alert('Mohon membayar invoice Anda terlebih dahulu');

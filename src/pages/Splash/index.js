@@ -8,7 +8,7 @@ import {useDispatch} from 'react-redux';
 import {
   showNotificationAction,
   getOrderActiveAction,
-  getOrderInactiveAction,
+  getOrderInactiveAction, 
 } from '../../redux/actions';
 
 const Splash = ({navigation}) => {

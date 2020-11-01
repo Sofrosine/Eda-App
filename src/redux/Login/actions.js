@@ -53,7 +53,7 @@ export const setLoginAction = (email, password, navigation) => {
           imei: dataUser.imeiToken,
           firebase_token: dataUser.fcmToken,
         },
-      );
+      ); 
       console.log('apireqq', apiReq);
       if (apiReq.data.data.user.email_verified) {
         console.log('verified');

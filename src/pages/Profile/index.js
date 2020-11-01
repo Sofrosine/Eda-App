@@ -33,7 +33,7 @@ const Profile = ({navigation}) => {
   const {profileReducer} = useSelector((state) => state);
   const {merchant} = profileReducer.data;
   const dispatch = useDispatch();
-  useEffect(() => {
+  useEffect(() => { 
     dispatch(getProfileAction());
     console.log('ini merchant', profileReducer);
   }, []);

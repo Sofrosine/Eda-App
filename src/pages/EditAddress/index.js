@@ -77,7 +77,7 @@ const EditAddress = ({navigation}) => {
       //       merchant_address: selectedData,
       //       district_id: districtReducer.selectedDistrict,
       //       merchant_latitude: latitude,
-      //       merchant_longitude: longitude,
+      //       me  rchant_longitude: longitude,
       //     },
       //     navigation,
       //   ),

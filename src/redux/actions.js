@@ -25,3 +25,5 @@ export * from './Profile/actions';
 export * from './Invoice/actions';
 export * from './RequestOrder/actions';
 export * from './ShowNotificationAlert/actions';
+export * from './SetLocationMove/actions';
+export * from './VersaStatus/actions';

@@ -4,6 +4,7 @@ import Axios from 'axios';
 import {Alert} from 'react-native';
 import {setLoadingAction} from '../Loading/actions';
 import {resetUploadImageAction} from '../UploadImage/actions';
+import {errorHandler} from '../../utils';
 
 const addOrder = () => ({
   type: ADD_ORDER,
@@ -77,11 +78,13 @@ export const addOrderAction = (form, navigation, resetForm) => {
         [
           {
             text: 'Tidak',
-            onPress: () =>
+            onPress: () => {
+              dispatch(resetUploadImageAction());
               navigation.replace('CreateOrder2', {
                 item: apiReq.data.data.request_order_id,
                 request_order_id: apiReq.data.data.request_order_id.id,
-              }),
+              });
+            },
             style: 'cancel',
           },
           {
@@ -99,6 +102,7 @@ export const addOrderAction = (form, navigation, resetForm) => {
       dispatch(addOrderFailed(error));
       Alert.alert('Mohon koreksi data Anda atau coba beberapa saat lagi');
       dispatch(setLoadingAction(false));
+      // errorHandler(error);
     }
   };
 };

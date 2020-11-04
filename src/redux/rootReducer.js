@@ -26,6 +26,8 @@ import profileReducer from './Profile/reducers';
 import invoiceReducer from './Invoice/reducers';
 import requestOrderReducer from './RequestOrder/reducers';
 import showNotificationAlertReducer from './ShowNotificationAlert/reducers';
+import setLocationMoveReducer from './SetLocationMove/reducers';
+import versaStatusReducer from './VersaStatus/reducers';
 
 const appReducer = combineReducers({
   loginReducer,
@@ -55,6 +57,8 @@ const appReducer = combineReducers({
   invoiceReducer,
   requestOrderReducer,
   showNotificationAlertReducer,
+  setLocationMoveReducer,
+  versaStatusReducer,
 });
 
 const rootReducer = (state, action) => {

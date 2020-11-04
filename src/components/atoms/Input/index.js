@@ -19,6 +19,7 @@ const Input = ({
   value,
   onBlur,
   defaultValue,
+  keyboardType,
 }) => {
   if (type === 'map') {
     return (
@@ -245,6 +246,7 @@ const Input = ({
         placeholderTextColor={colors.text.placeholder}
         secureTextEntry={password}
         style={styles.input(errorText, theme)}
+        keyboardType={keyboardType}
       />
       <Text style={[styles.p2ItalicPrimary, styles.description]}>
         {description}

@@ -29,6 +29,7 @@ import {
 import {Picker} from '@react-native-community/picker';
 import {Formik} from 'formik';
 import * as yup from 'yup';
+import {CommonActions} from '@react-navigation/native';
 
 const paymentSchema = yup.object({
   bank_sender_account_name: yup.string().required('Nama Rekening wajib diisi!'),
@@ -81,9 +82,16 @@ const CreateOrder2 = ({navigation, route}) => {
   return (
     <SafeAreaView style={styles.pages}>
       <Navbar
-        onPress={() => navigation.navigate('HomeDrawer')}
+        onPress={() =>
+          navigation.dispatch(
+            CommonActions.reset({
+              index: 0,
+              routes: [{name: 'HomeDrawer'}],
+            }),
+          )
+        }
         type="back"
-        title="Buat Order Baru"
+        title="Pembayaran"
       />
       <Formik
         validationSchema={paymentSchema}
@@ -170,6 +178,7 @@ const CreateOrder2 = ({navigation, route}) => {
                     label="Nomor Rekening"
                     theme="light"
                     required
+                    keyboardType="number-pad"
                   />
                   <Gap height={24} />
                   <Dropdown

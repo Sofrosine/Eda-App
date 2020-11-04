@@ -52,6 +52,7 @@ const Home = ({navigation}) => {
     } else {
       Alert.alert('Mohon membayar invoice Anda terlebih dahulu');
       navigation.navigate('List Request Order');
+      console.log('tototo', total);
     }
   };
 

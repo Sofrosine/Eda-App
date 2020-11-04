@@ -4,6 +4,7 @@ import {
   SET_AUTO_COMPLETE_FAILED,
   SELECT_AUTO_COMPLETE,
   SHOW_AUTO_COMPLETE,
+  SELECT_AUTO_COMPLETE_VERSA,
 } from './constants';
 
 const initialState = {
@@ -35,6 +36,11 @@ const autoCompleteReducer = (state = initialState, action) => {
         error: action.payload.error,
       };
     case SELECT_AUTO_COMPLETE:
+      return {
+        ...state,
+        selectedData: action.payload.resSelected,
+      };
+    case SELECT_AUTO_COMPLETE_VERSA:
       return {
         ...state,
         selectedData: action.payload.resSelected,

@@ -8,7 +8,9 @@ import {useDispatch} from 'react-redux';
 import {
   showNotificationAction,
   getOrderActiveAction,
-  getOrderInactiveAction, 
+  getOrderInactiveAction,
+  getInvoiceListAction,
+  getTotalInvoiceAction,
 } from '../../redux/actions';
 
 const Splash = ({navigation}) => {
@@ -89,6 +91,8 @@ const Splash = ({navigation}) => {
         // console.log('1');
         dispatch(getOrderActiveAction());
         dispatch(getOrderInactiveAction());
+        dispatch(getInvoiceListAction());
+        dispatch(getTotalInvoiceAction());
       });
 
     // [***SAAT APP JALAN DI BG***]
@@ -104,6 +108,8 @@ const Splash = ({navigation}) => {
         // console.log('2');
         dispatch(getOrderActiveAction());
         dispatch(getOrderInactiveAction());
+        dispatch(getInvoiceListAction());
+        dispatch(getTotalInvoiceAction());
       });
 
     // [***DIBUKA SAAT KONDISI APP CLOSE***]
@@ -116,6 +122,8 @@ const Splash = ({navigation}) => {
       // console.log('3');
       dispatch(getOrderActiveAction());
       dispatch(getOrderInactiveAction());
+      dispatch(getInvoiceListAction());
+      dispatch(getTotalInvoiceAction());
     }
 
     const messageListener = firebase.messaging().onMessage((message) => {

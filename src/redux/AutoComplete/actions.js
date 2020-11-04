@@ -4,9 +4,12 @@ import {
   SET_AUTO_COMPLETE_FAILED,
   SELECT_AUTO_COMPLETE,
   SHOW_AUTO_COMPLETE,
+  SELECT_AUTO_COMPLETE_VERSA,
 } from './constants';
 import Axios from 'axios';
 import {setConvertPlaceAction} from '../ConvertPlaceID/actions';
+import {setLocationAction} from '../GetLocation/actions';
+import { changeVersaStatusAction } from '../VersaStatus/actions';
 
 const apiKey = 'AIzaSyDKqZZCb-EQdlnZlGAicHwHIrouAW2At-8';
 
@@ -28,6 +31,12 @@ const selectAutoComplete = (resSelected) => ({
   type: SELECT_AUTO_COMPLETE,
   payload: {resSelected},
 });
+
+const selectAutoCompleteVersa = (resSelected) => ({
+  type: SELECT_AUTO_COMPLETE_VERSA,
+  payload: {resSelected},
+});
+
 const showAutoComplete = (showPrediction) => ({
   type: SHOW_AUTO_COMPLETE,
   payload: {showPrediction},
@@ -44,6 +53,7 @@ export const setAutoCompleteAction = (latitude, longitude, input) => {
       );
       console.log('apireqqq', apiReq);
       dispatch(setAutoCompleteSuccess(apiReq.data.predictions));
+      dispatch(changeVersaStatusAction(false));
     } catch (error) {
       console.log('error auto', error);
       dispatch(setAutoCompleteFailed(error));
@@ -57,5 +67,20 @@ export const selectAutoCompleteAction = (input, data) => {
     dispatch(selectAutoComplete(input.description));
     dispatch(showAutoComplete(false));
     dispatch(setConvertPlaceAction(input.place_id));
+  };
+};
+
+export const selectAutoCompleteVersaAction = (input, data) => {
+  return async (dispatch) => {
+    console.log('inputt', input);
+    dispatch(selectAutoCompleteVersa(input.formatted_address));
+    dispatch(showAutoComplete(false));
+    // dispatch(
+    //   setLocationAction(
+    //     input.geometry.location.lat,
+    //     input.geometry.location.lng,
+    //   ),
+    // );
+    // dispatch(setConvertPlaceAction(input.place_id));
   };
 };

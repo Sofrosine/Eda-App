@@ -131,7 +131,10 @@ const CreateOrder = ({navigation}) => {
     autoCompleteReducer,
     getLocationReducer,
     uploadImageReducer,
+    versaStatusReducer,
+    setLocationMoveReducer,
   } = useSelector((state) => state);
+  const {data, loading, newLatitude, newLongitude} = setLocationMoveReducer;
 
   const resetForm = () => {
     setForm({
@@ -148,31 +151,31 @@ const CreateOrder = ({navigation}) => {
 
   const handleSubmit = async (val) => {
     if (receiver_name === '') {
-      return Alert.alert('Mohon Lengkapi Data Anda');
+      return Alert.alert('Mohon isi nama penerima');
     }
     if (receiver_phone === '') {
-      return Alert.alert('Mohon Lengkapi Data Anda');
+      return Alert.alert('Mohon isi nomor telepon penerima');
     }
     if (product_name === '') {
-      return Alert.alert('Mohon Lengkapi Data Anda');
+      return Alert.alert('Mohon isi nama barang');
     }
     if (product_description === '') {
-      return Alert.alert('Mohon Lengkapi Data Anda');
+      return Alert.alert('Mohon isi deskripsi barang');
     }
     if (product_weight === '') {
-      return Alert.alert('Mohon Lengkapi Data Anda');
+      return Alert.alert('Mohon isi berat barang');
     }
     if (product_height === '') {
-      return Alert.alert('Mohon Lengkapi Data Anda');
+      return Alert.alert('Mohon isi tinggi barang');
     }
     if (product_width === '') {
-      return Alert.alert('Mohon Lengkapi Data Anda');
+      return Alert.alert('Mohon isi lebar barang');
     }
     if (product_length === '') {
-      return Alert.alert('Mohon Lengkapi Data Anda');
+      return Alert.alert('Mohon isi panjang barang');
     }
     if (newDate.length < 1) {
-      Alert.alert('Mohon lengkapi data Anda');
+      Alert.alert('Mohon isi tanggal pengiriman');
     } else if (autoCompleteReducer.selectedData.length < 1) {
       Alert.alert('Mohon isi Alamat Anda');
     } else if (districtReducer.selectedDistrict === 'placeholder') {
@@ -180,6 +183,7 @@ const CreateOrder = ({navigation}) => {
     } else if (!uploadImageReducer.data.id) {
       Alert.alert('Mohon upload foto barang Anda');
     } else {
+      // console.log('ini versa gak', versaStatusReducer.isVersa);
       dispatch(
         addOrderAction(
           {
@@ -187,8 +191,12 @@ const CreateOrder = ({navigation}) => {
             receiver_name: receiver_name,
             receiver_phone: `+62${receiver_phone}`,
             receiver_address: autoCompleteReducer.selectedData,
-            receiver_latitude: getLocationReducer.latitude,
-            receiver_longitude: getLocationReducer.longitude,
+            receiver_latitude: versaStatusReducer.isVersa
+              ? newLatitude
+              : getLocationReducer.latitude,
+            receiver_longitude: versaStatusReducer.isVersa
+              ? newLongitude
+              : getLocationReducer.longitude,
             district_id: districtReducer.selectedDistrict,
             payment_method: 'transfer',
             details: [
@@ -249,7 +257,7 @@ const CreateOrder = ({navigation}) => {
       <ScrollView contentContainerStyle={{paddingHorizontal: 16}}>
         <Gap height={24} />
         <View style={styles.rowCenterBetween}>
-          <Text style={[styles.buttonPrimaryBold, styles.textTitle]}></Text>
+          <Text style={[styles.buttonPrimaryBold, styles.textTitle]}> </Text>
           <TouchableOpacity
             onPress={() => setVisible(true)}
             style={[styles.selfCenter]}>

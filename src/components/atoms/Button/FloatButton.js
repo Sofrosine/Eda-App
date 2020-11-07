@@ -6,11 +6,9 @@ import {ICPlusWhite} from '../../../assets';
 const FloatButton = ({icon = ICPlusWhite, onPress}) => {
   const Icon = icon;
   return (
-    <View>
-      <TouchableOpacity onPress={onPress} style={styles.container}>
-        <Icon width={18} height={18} />
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity onPress={onPress} style={styles.container}>
+      <Icon width={18} height={18} />
+    </TouchableOpacity>
   );
 };
 
@@ -25,10 +23,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center',
     borderRadius: 200,
+    zIndex: 99999999999,
     // shadowColor: colors.black,
     // shadowOffset: {height: 1, width: 0},
     // shadowOpacity: 0.2,
     // shadowRadius: 5,
-    // elevation: 2,
+    elevation: 2,
   },
 });

@@ -26,7 +26,7 @@ const TabDrawer = ({text, isActive, icon, routeName, logout}) => {
       Alert.alert(
         'Apakah Anda yakin ingin keluar?',
         '',
-        [ 
+        [
           {
             text: 'Tidak',
             onPress: () => {},
@@ -36,29 +36,30 @@ const TabDrawer = ({text, isActive, icon, routeName, logout}) => {
             text: 'Ya',
             onPress: async () => {
               dispatch(setLoadingAction(true));
+              navigation.dispatch(
+                CommonActions.reset({
+                  index: 0,
+                  routes: [{name: 'Auth'}],
+                }),
+              );
+              dispatch({type: 'DELETE_STATE'});
               const imei = await getData('imeiToken');
-              console.log('ittitmei', imei)
+              console.log('ittitmei', imei);
               try {
-                console.log('aa')
+                console.log('aa');
                 const apiReq = await api('post', 'auth/logout', {
                   imei,
                 });
                 console.log('apiReq logout success', apiReq);
                 AsyncStorage.removeItem('@user_token');
-                dispatch({type: 'DELETE_STATE'});
-                navigation.dispatch(
-                  CommonActions.reset({
-                    index: 0,
-                    routes: [{name: 'Auth'}],
-                  }),
-                );
+
                 ToastAndroid.show('Berhasil melakukan logout', 2000);
               } catch (error) {
                 console.log('apiReq logout error', error);
                 Alert.alert(
                   'Ada masalah saat melakukan logout, harap coba lagi',
                 );
-              } 
+              }
               dispatch(setLoadingAction(false));
             },
           },

@@ -1,6 +1,5 @@
 import React, {memo, useEffect, useState} from 'react';
 import {
-  ActivityIndicator,
   Alert,
   FlatList,
   SafeAreaView,
@@ -9,20 +8,13 @@ import {
   View,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
+import {Button, CardTask, Gap, HomeTabBar, Navbar} from '../../components';
 import {
-  Button,
-  CardTask,
-  Gap,
-  HomeTabBar,
-  Navbar,
-  NotificationAlert,
-} from '../../components';
-import {
+  getInvoiceListAction,
   getOrderActiveAction,
   getOrderInactiveAction,
-  getOrderPaginationInactiveAction,
   getOrderPaginationActiveAction,
-  getInvoiceListAction,
+  getOrderPaginationInactiveAction,
   getTotalInvoiceAction,
 } from '../../redux/actions';
 import {colors, fonts, getData} from '../../utils';
@@ -48,7 +40,9 @@ const Home = ({navigation}) => {
     if (!getUser.merchant.is_complete) {
       return Alert.alert('Mohon lengkapi profile Anda terlebih dahulu');
     } else if (!total > 0) {
-      navigation.navigate('CreateOrder');
+      navigation.navigate('CreateOrder', {
+        request_order_id: false,
+      });
     } else {
       Alert.alert('Mohon membayar invoice Anda terlebih dahulu');
       navigation.navigate('List Request Order');

@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {Picker} from '@react-native-community/picker';
+import {useRoute} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {
   Alert,
@@ -71,6 +72,10 @@ const CreateOrder = ({navigation}) => {
   const [product_height, setHeight] = useState('');
   const [product_width, setWidth] = useState('');
   const [product_length, setLength] = useState('');
+
+  const routes = useRoute();
+
+  const {request_order_id} = routes.params;
 
   const getName = async () => {
     const receiver_name_val = await getData('receiver_name');
@@ -213,7 +218,7 @@ const CreateOrder = ({navigation}) => {
             ],
           },
           navigation,
-          resetForm,
+          request_order_id,
         ),
       );
       await AsyncStorage.removeItem('receiver_name');

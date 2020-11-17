@@ -20,7 +20,7 @@ const addOrderFailed = (error) => ({
   payload: {error},
 });
 
-export const addOrderAction = (form, navigation, resetForm) => {
+export const addOrderAction = (form, navigation, request_order_id) => {
   return async (dispatch) => {
     dispatch(setLoadingAction(true));
     dispatch(addOrder());
@@ -47,7 +47,8 @@ export const addOrderAction = (form, navigation, resetForm) => {
     } = form.details[0];
 
     try {
-      const apiReq = await api('post', 'order', {
+      const dataWithRequest = {
+        request_order_id,
         schedule,
         receiver_name,
         receiver_phone,
@@ -68,7 +69,34 @@ export const addOrderAction = (form, navigation, resetForm) => {
             product_image_id,
           },
         ],
-      });
+      };
+      const dataNoRequest = {
+        schedule,
+        receiver_name,
+        receiver_phone,
+        receiver_address,
+        receiver_latitude,
+        receiver_longitude,
+        district_id,
+        payment_method,
+        details: [
+          {
+            product_name,
+            product_description,
+            product_height,
+            product_weight,
+            product_length,
+            product_width,
+            category_id,
+            product_image_id,
+          },
+        ],
+      };
+      const apiReq = await api(
+        'post',
+        'order',
+        request_order_id ? dataWithRequest : dataNoRequest,
+      );
       console.log('apiREQQQ', apiReq);
       dispatch(addOrderSuccess(apiReq));
       dispatch(setLoadingAction(false));
@@ -91,7 +119,9 @@ export const addOrderAction = (form, navigation, resetForm) => {
             text: 'Ya',
             onPress: () => {
               dispatch(resetUploadImageAction());
-              navigation.replace('TransitionScreen');
+              navigation.replace('CreateOrder', {
+                request_order_id: apiReq.data.data.request_order_id.id,
+              });
             },
           },
         ],

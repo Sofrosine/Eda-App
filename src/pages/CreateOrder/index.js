@@ -46,6 +46,7 @@ const CreateOrder = ({navigation}) => {
   const [form, setForm] = useForm({
     receiver_name: '',
     receiver_phone: '',
+    receiver_address_detail: '',
     product_name: '',
     product_description: '',
     product_weight: '',
@@ -56,6 +57,7 @@ const CreateOrder = ({navigation}) => {
   const [errorForm, setErrorForm] = useForm({
     receiver_name: '',
     receiver_phone: '',
+    receiver_address_detail: '',
     product_name: '',
     product_description: '',
     product_weight: '',
@@ -67,6 +69,7 @@ const CreateOrder = ({navigation}) => {
   const [receiver_phone, setReceiverPhone] = useState('');
   const [product_name, setProductName] = useState('');
   const [receiver_name, setReceiverName] = useState('');
+  const [receiver_address_detail, setReceiverAddressDetail] = useState('');
   const [product_description, setDescription] = useState('');
   const [product_weight, setWeight] = useState('');
   const [product_height, setHeight] = useState('');
@@ -80,6 +83,9 @@ const CreateOrder = ({navigation}) => {
   const getName = async () => {
     const receiver_name_val = await getData('receiver_name');
     const receiver_phone_val = await getData('receiver_phone');
+    const receiver_address_detail_val = await getData(
+      'receiver_address_detail',
+    );
     const product_name_val = await getData('product_name');
     const product_description_val = await getData('product_description');
     const product_weight_val = await getData('product_weight');
@@ -88,6 +94,8 @@ const CreateOrder = ({navigation}) => {
     const product_length_val = await getData('product_length');
 
     receiver_phone_val && setReceiverPhone(receiver_phone_val);
+    receiver_address_detail_val &&
+      setReceiverPhone(receiver_address_detail_val);
     receiver_name_val && setReceiverName(receiver_name_val);
     product_name_val && setProductName(product_name_val);
     product_description_val && setDescription(product_description_val);
@@ -145,6 +153,7 @@ const CreateOrder = ({navigation}) => {
     setForm({
       receiver_name: '',
       receiver_phone: '',
+      receiver_address_detail: '',
       product_name: '',
       product_description: '',
       product_weight: '',
@@ -160,6 +169,9 @@ const CreateOrder = ({navigation}) => {
     }
     if (receiver_phone === '') {
       return Alert.alert('Mohon isi nomor telepon penerima');
+    }
+    if (receiver_address_detail === '') {
+      return Alert.alert('Mohon isi detail alamat penerima');
     }
     if (product_name === '') {
       return Alert.alert('Mohon isi nama barang');
@@ -196,6 +208,7 @@ const CreateOrder = ({navigation}) => {
             receiver_name: receiver_name,
             receiver_phone: `+62${receiver_phone}`,
             receiver_address: autoCompleteReducer.selectedData,
+            receiver_address_detail: receiver_address_detail,
             receiver_latitude: versaStatusReducer.isVersa
               ? newLatitude
               : getLocationReducer.latitude,
@@ -223,6 +236,7 @@ const CreateOrder = ({navigation}) => {
       );
       await AsyncStorage.removeItem('receiver_name');
       await AsyncStorage.removeItem('receiver_phone');
+      await AsyncStorage.removeItem('receiver_address_detail');
       await AsyncStorage.removeItem('product_name');
       await AsyncStorage.removeItem('product_description');
       await AsyncStorage.removeItem('product_weight');
@@ -305,6 +319,21 @@ const CreateOrder = ({navigation}) => {
           theme="light"
           label="Alamat Penerima"
           placeholder="Masukkan alamat penerima di sini"
+        />
+        <Gap height={24} />
+        <Input
+          value={receiver_address_detail}
+          errorText={errorForm.receiver_address_detail}
+          // onBlur={props.handleBlur('receiver_address_detail')}
+          onChangeText={(val) => {
+            setReceiverAddressDetail(val);
+            storeData('receiver_address_detail', val);
+          }}
+          placeholder="Masukkan detail alamat"
+          label="Detail Alamat Penerima"
+          theme="light"
+          required
+          type="description"
         />
         <Gap height={24} />
         <Dropdown

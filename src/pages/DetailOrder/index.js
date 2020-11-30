@@ -120,6 +120,10 @@ const DetailOrder = ({route, navigation}) => {
             title="Alamat Penerima"
             subtitle={data.receiver_address}
           />
+          {/* <Gap height={16} />
+          <ListDetailOrder
+            title="Alamat Penerima"
+          /> */}
           <Gap height={16} />
           <ListDetailOrder
             title="Nama Barang"
